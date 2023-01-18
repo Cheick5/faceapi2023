@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import {Route, Routes} from 'react-router-dom';
+// import logo from './logo.svg';
+import { Index } from './pages/home/index';
+import  FileUpload  from './components/FileUpload';
+// import './App.css';
 
-function App() {
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <div>
+      <Routes>
+        <Route  path = "/" element = {<> <Index/> <FileUpload/> </>}/>
+        <Route  path = "/uploaded" element = {<> </>}/>
+        {/* <Route  path = "/" element = {<> <Car/> <Terms/> </>}/>
+        <Route  path = "/terms" element = {<><Terms/> <Footer/> </> }/>
+        <Route  path = "/about" element = {<><About/> <Footer/> </> }/>
+        <Route  path = "/eventos" element = {<> <Eventos/> <Footer/> </> }/>
+        <Route  path = "/tienda" element = {<><Tienda/> <Footer/> </>}/>
+        <Route  path = "/carrito" element = {<><CarritoCompras/> <Paypal/> <Footer/></>}/> */}
 
-export default App;
+      </Routes>
+    </div>
+  )
+}
