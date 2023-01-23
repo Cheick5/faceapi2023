@@ -1,6 +1,7 @@
 import {Route, Routes} from 'react-router-dom';
 // import logo from './logo.svg';
 import { Index } from './pages/home/index';
+import { Uploaded } from './pages/upload/uploaded';
 import  FileUpload  from './components/FileUpload';
 // import './App.css';
 
@@ -9,7 +10,7 @@ export const App = () => {
     <div>
       <Routes>
         <Route  path = "/" element = {<> <Index/> <FileUpload/> </>}/>
-        <Route  path = "/uploaded" element = {<> </>}/>
+        <Route  path = "/uploaded" element = {<> <Uploaded/> </>}/>
         {/* <Route  path = "/" element = {<> <Car/> <Terms/> </>}/>
         <Route  path = "/terms" element = {<><Terms/> <Footer/> </> }/>
         <Route  path = "/about" element = {<><About/> <Footer/> </> }/>
