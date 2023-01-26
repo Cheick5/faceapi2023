@@ -13,13 +13,14 @@ from PIL import Image, ImageDraw
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person, QualityForRecognition
-
+from constantes import * #kEY1, ENDPOINT, CONFIANZA
+import csv
 
 # This key will serve all examples in this document.
-KEY = "PASTE_YOUR_FACE_SUBSCRIPTION_KEY_HERE"
+KEY = KEY1
 
 # This endpoint will be used in all examples in this quickstart.
-ENDPOINT = "PASTE_YOUR_FACE_ENDPOINT_HERE"
+# ENDPOINT = ENDPOINT
 
 # Base url for the Verify and Facelist/Large Facelist operations
 IMAGE_BASE_URL = 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/Face/images/'
@@ -32,25 +33,96 @@ PERSON_GROUP_ID = str(uuid.uuid4()) # assign a random ID (or name it anything), 
 # Used for the Delete Person Group example.
 TARGET_PERSON_GROUP_ID = str(uuid.uuid4()) # assign a random ID (or name it anything)
 
+from flask import Flask, request
+from flask_cors import CORS, cross_origin
 
-'''
-Create the PersonGroup
-'''
-def create_person_group(PersonGroupID):
-    # Create an authenticated FaceClient.
-    face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
-    # Create empty Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
-    print('Person group:', PersonGroupID)
-    face_client.person_group.create(person_group_id=PersonGroupID, name=PersonGroupID, recognition_model='recognition_04') #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/create?tabs=HTTP
+app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 
-    # Define woman friend
-    woman = face_client.person_group_person.create(PersonGroupID, name="Woman") #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group-person/create?tabs=HTTP#person
-    # Define man friend
-    man = face_client.person_group_person.create(PersonGroupID, name="Man") 
-    # Define child friend
-    child = face_client.person_group_person.create(PersonGroupID, name="Child")
+# response.headers.add('', '*')
 
-# '''
+
+
+def create_person_group(PersonGroupID,recognition_model = "recognition_04"):
+    '''
+    Create the PersonGroup
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # Create empty Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
+        print('Person group aaaaaaa:', PersonGroupID)
+        face_client.person_group.create(person_group_id=PersonGroupID, name=PersonGroupID, recognition_model=recognition_model) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/create?tabs=HTTP
+        # # Define woman friend
+        # woman = face_client.person_group_person.create(PersonGroupID, name="Woman") #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group-person/create?tabs=HTTP#person
+        # # Define man friend
+        # man = face_client.person_group_person.create(PersonGroupID, name="Man") 
+        # # Define child friend
+        # child = face_client.person_group_person.create(PersonGroupID, name="Child")
+        
+        file = open("person_groups.csv", "a", newline='')
+        writer = csv.writer(file)
+        writer.writerow({PersonGroupID})
+        file.close()
+        return True
+    except Exception as e:
+        print("Error en create_person_group")
+        print(e)
+
+def list_person_groups():
+    '''
+    List all PersonGroups
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # List all Person Groups
+        person_groups = face_client.person_group.list() #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
+        new_list = []
+        for person_group in person_groups:
+            new_list.append(person_group.name)
+        return(new_list)
+    except Exception as e:
+        print("Error en list_person_groups")
+        print(e)
+
+def delete_person_group(PersonGroupID):
+    '''
+    Delete the PersonGroup
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # Delete an existing Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
+        print('Person group aaaaaaa:', PersonGroupID)
+        face_client.person_group.delete(person_group_id=PersonGroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
+        return {"status": "ok"}
+    except Exception as e:
+        print("Error en delete_person_group")
+        print(e)
+
+def create_person(PersonGroupID, name):
+    '''
+    Create a new person in a specified person group.
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # Create empty Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
+        person = face_client.person_group_person.create(PersonGroupID, name=name) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group-person/create?tabs=HTTP#person
+        
+        file = open("person.csv", "a", newline='')
+        writer = csv.writer(file)
+        writer.writerow({PersonGroupID})
+        file.close()
+        # return person
+    except Exception as e:
+        print("Error en create_person")
+
+
+
 # Detect faces and register them to each person
 # '''
 # # Find all jpeg images of friends in working directory (TBD pull from web instead)

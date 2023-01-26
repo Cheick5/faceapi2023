@@ -52,11 +52,9 @@ class FileUpload extends React.Component{
             <div className = "Upload">
                 <div className="row" style = {{textAlign : 'center'}}>
                     <div className="col-md-6 offset-md-3">
- 
-                            
                             <div className="form-row">
                                 <div style= {{marginTop:"4%"}} className="form-group col-md-6">
-                                    <label className="text-white">Selecciona un archivo :</label>
+                                    <h2 className="text-uppercase text-center mb-5">Selecciona un archivo :</h2>
                                     <br></br>
                                     <input type="file" className="form-control" name="upload_file" onChange={this.handleInputChange} />
                                 </div>

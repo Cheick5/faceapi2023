@@ -25,24 +25,22 @@ function CreatePersonGroup() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("groupid");
         console.log(groupid)
 
         try {
-            const response = await axios.post('http://localhost:5000/',
+            const response = await axios.post('http://localhost:5000/post_create_person_group',
                 JSON.stringify({ groupid }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     // withCredentials: true
                 }
             );
-            // TODO: remove console.logs before deployment
             console.log(JSON.stringify(response?.data));
+            // await window.location.reload();
             //console.log(JSON.stringify(response))
             // setSuccess(true);
-            // //clear state and controlled inputs
-            // setUsername('');
-            // setEmail('');
-            // setPassword('');
+         
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
@@ -56,24 +54,23 @@ function CreatePersonGroup() {
     }
     return ( 
     <>
-    <MDBContainer fluid className='d-flex align-items-center justify-content-center bg-image' style={{backgroundImage: 'url(https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp)'}}>
-      <div className='mask gradient-custom-3'></div>
-      <MDBCard className='m-5' style={{maxWidth: '600px'}}>
-        <MDBCardBody className='px-5'>
-            <h2 className="text-uppercase text-center mb-5">Crea una cuenta</h2>
-            <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-            <form onSubmit={handleSubmit}>
-                <div className="input-field">
-                    <input type='text' value={groupid} placeholder= 'Username' required onChange={(e) => setGroupid(e.target.value)}/>
-                    <i class="uil uil-user"></i>
-                </div>
-                
-            
-                <MDBBtn className='mb-4 w-100 gradient-custom-4' size='lg'style={{backgroundColor : "#f93154a6"}} >Register</MDBBtn>
-            </form>
-        </MDBCardBody>
-      </MDBCard>
-    </MDBContainer>
+    <div className = "Upload">
+        <div className="row" style = {{textAlign : 'center'}}>
+            <div className="col-md-auto">
+                <MDBCardBody className='px-5'>
+                    <h2 className="text-uppercase text-center mb-5">Crea un Person Group </h2>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-field">
+                            <input name = "groupid" type='text' value={groupid} placeholder= 'Ej: Presidentes' required onChange={(e) => setGroupid(e.target.value)}/>
+                            <i className="uil uil-user"></i>
+                        </div> 
+                        <button style = {{marginBottom : "2rem"}} >Save</button>
+                    </form>
+                </MDBCardBody>
+            </div>
+        </div>
+    </div>
     </>
 
      );
