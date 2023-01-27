@@ -1,8 +1,11 @@
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from locallib import *
-from constantes import *
+#from constantes import *
 from pprint import pprint
+
+KEY = "41528c18743e46b490b623815dc31ecf"
+ENDPOINT = "https://asistencia2023.cognitiveservices.azure.com"
 
 app = Flask(__name__)
 cors = CORS(app)

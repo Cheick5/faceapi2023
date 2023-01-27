@@ -15,33 +15,19 @@ import {
 
 function DeletePersonGroup() {
 
-    const [person, setPerson] = useState("")
     const [groupid, setgroupid] = useState({})
     const [list, setList] = useState([])
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
     
-
-    const handleSelected = async (e) => {
-        e.preventDefault();
-        const index = e.target.selectedIndex;
-        const optionElement = e.target.childNodes[index]
-        const value = optionElement.value;
-        console.log("delete")
-        console.log({value});
-        setgroupid(value)
-        console.log( "select group:" + groupid);
-
-    
-    }
-    
     const handleDelete = async (e) => {
         console.log("Entro a borrar");
+        
         try {
             // console.log("Entro a borrar, con groupid: " + groupid);
             console.log("Entro a borrar, con groupid: " + JSON.stringify({ groupid }));
             const response = await axios.delete('http://localhost:5000/delete_delete_list_persons', 
-                JSON.stringify({ groupid }),
+                { data: { groupid } }    ,
                 {
                     header: {'Content-Type' : 'application/json'},
                 }
@@ -98,7 +84,7 @@ function DeletePersonGroup() {
                     <form > 
                         <label>
                         Selecciona un GroupId: 
-                        <select onClick = {handleSelect} onChange ={handleSelected}>
+                        <select onClick = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
                             {list.map((e,key) => {
                                return <option key={key} value={e}> {e} </option>
                             })}
