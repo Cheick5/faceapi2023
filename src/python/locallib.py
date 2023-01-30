@@ -118,9 +118,15 @@ def create_person(PersonGroupID, name):
         writer = csv.writer(file)
         writer.writerow({PersonGroupID})
         file.close()
-        # return person
+        return {"status": "ok"}
     except Exception as e:
         print("Error en create_person")
+        print(e)
+    
+# def photo_to_person(PersonGroupID, personID, encoded_image):
+#     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+#     face_client.person
+
 
 
 

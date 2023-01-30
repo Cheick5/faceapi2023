@@ -77,7 +77,7 @@ function DeletePersonGroup() {
     <>
     <div className = "Upload">
         <div className="row" style = {{textAlign : 'center'}}>
-            <div className="col-md-6 offset-md-3">
+            <div className="col-md-auto">
                 <MDBCardBody className='px-5'>
                     <h2 className="text-uppercase text-center mb-5">Borra un PersonGroup</h2>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
@@ -85,6 +85,9 @@ function DeletePersonGroup() {
                         <label>
                         Selecciona un GroupId: 
                         <select onClick = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
+                            
+                            <option value=""> -- Ej: Presidentes -- </option>
+
                             {list.map((e,key) => {
                                return <option key={key} value={e}> {e} </option>
                             })}

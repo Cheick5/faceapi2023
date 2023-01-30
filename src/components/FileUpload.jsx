@@ -4,6 +4,15 @@ import { Link } from "react-router-dom"
 // import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import {
+    MDBBtn,
+    MDBContainer,
+    MDBCard,
+    MDBCardBody,
+  }
+  
+  from 'mdb-react-ui-kit';;
+
 class FileUpload extends React.Component{
     constructor(){
         super();
@@ -49,19 +58,16 @@ class FileUpload extends React.Component{
  
     render(){
         return(            
-            <div className = "Upload">
-                <div className="row" style = {{textAlign : 'center'}}>
-                    <div className="col-md-6 offset-md-3">
-                            <div className="form-row">
-                                <div style= {{marginTop:"4%"}} className="form-group col-md-6">
-                                    <h2 className="text-uppercase text-center mb-5">Selecciona un archivo :</h2>
-                                    <br></br>
+            <>
+            <div className = "Upload" style = {{display : "flex" , justifyContent : "center"}}s>
+                <div className="row">
+                    <div className="col-md-auto">
+                        <MDBCardBody className='px-5'>
+                                    <h2 style= {{marginTop: "2rem"}} className="text-uppercase text-center mb-5">Selecciona un archivo :</h2>
                                     <input type="file" className="form-control" name="upload_file" onChange={this.handleInputChange} />
-                                </div>
-                            </div>
  
                             <div className="form-row">
-                                <div className="col-md-6">
+                                <div>
                                     <button style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" className="btn btn-dark" onClick={()=>this.submit()}>Save</button>
                                 </div>
                                     <Link to = "/uploaded">
@@ -71,9 +77,11 @@ class FileUpload extends React.Component{
 
 
                             </div>
+                    </MDBCardBody>
                     </div>
                 </div>
             </div>
+            </>
         )  
     }
 }

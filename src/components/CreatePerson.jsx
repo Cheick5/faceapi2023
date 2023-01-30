@@ -15,6 +15,7 @@ import {
 
 function CreatePerson() {
 
+    const [groupid, setgroupid] = useState({})
     const [person, setPerson] = useState("")
     const [selectgroup, setSelectgroup] = useState("")
     const [list, setList] = useState([])
@@ -52,12 +53,12 @@ function CreatePerson() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("person");
-        console.log(person);
+        console.log("person" + person);
 
         try {
-            const response = await axios.post('http://localhost:5000/post_create_person_group',
-                JSON.stringify({ person }),
+            const response = await axios.post('http://localhost:5000/post_create_person',
+                { "groupid": groupid,"name": person},
+
                 {
                     headers: { 'Content-Type': 'application/json' },
                     // withCredentials: true
@@ -90,7 +91,8 @@ function CreatePerson() {
                     <form > 
                         <label>
                         Selecciona un GroupId: 
-                        <select onClick = {handleSelect}>
+                        <select onClick = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
+                        <option value=""> -- Ej: Presidentes -- </option>
                             {list.map((e,key) => {
                                return <option key={key} value={e}> {e} </option>
                             })}
@@ -99,8 +101,7 @@ function CreatePerson() {
 
                         </select>
                         </label>
-                        
-                        <button style = {{marginBottom : "2rem"}} >Save</button>
+                        <br></br><br></br>
                     </form>
                     <form onSubmit={handleSubmit}>
                         <div className="input-field">

@@ -49,5 +49,24 @@ def delete_delete_list_persons():
     else:
         return("La request tiene que ser DELETE")
 
+@app.route('/post_create_person',methods = ['POST', 'GET'])
+def post_create_person():
+    if request.method == 'POST':
+        data = request.json
+        porfa = create_person(data['groupid'], data['name'])
+        return (porfa)
+    else:
+        return("no post")
+
+# @app.route("/post_photo_to_person", methods=['POST'])
+# def post_photo_to_person():
+#     if request.method == 'POST':
+#         data = request.json
+#         pprint(vars(request))
+#         porfa = add_person_face(data['groupid'], data['personid'], data['url'])
+#         return (porfa)
+#     else:
+#         return("no post")
+
 if __name__ == '__main__':
     app.run(debug=True)
