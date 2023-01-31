@@ -1,16 +1,18 @@
-from flask import Flask, request
+from flask import Flask, flash, request, redirect, url_for
 from flask_cors import CORS, cross_origin
 from locallib import *
-#from constantes import *
+from constantes import *
 from pprint import pprint
-
-KEY = "41528c18743e46b490b623815dc31ecf"
-ENDPOINT = "https://asistencia2023.cognitiveservices.azure.com"
+from werkzeug.utils import secure_filename
+import os
 
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
+UPLOAD_FOLDER = './uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/post_create_person_group',methods = ['POST', 'GET'])
     #NOW we get the post request from the client
@@ -58,6 +60,26 @@ def post_create_person():
     else:
         return("no post")
 
+def allowed_file(filename):     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload', methods=['POST', 'GET'])
+def post_upload():
+    try:
+        if request.method in ['POST' , 'GET']:
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+            return {"status": "ok"}
+        else:
+            return("no post")
+    except Exception as e:
+        print(e)
+        return {"status": "no ok"}
 # @app.route("/post_photo_to_person", methods=['POST'])
 # def post_photo_to_person():
 #     if request.method == 'POST':
@@ -69,4 +91,5 @@ def post_create_person():
 #         return("no post")
 
 if __name__ == '__main__':
+    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
     app.run(debug=True)

@@ -13,15 +13,13 @@ from PIL import Image, ImageDraw
 from azure.cognitiveservices.vision.face import FaceClient
 from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person, QualityForRecognition
-#from constantes import * #kEY1, ENDPOINT, CONFIANZA
+from constantes import * #kEY1, ENDPOINT, CONFIANZA
 import csv
 
 # This key will serve all examples in this document.
-# KEY = KEY1
-KEY = "41528c18743e46b490b623815dc31ecf"
-ENDPOINT = "https://asistencia2023.cognitiveservices.azure.com"
+KEY = KEY1
 # This endpoint will be used in all examples in this quickstart.
-# ENDPOINT = ENDPOINT
+ENDPOINT = ENDPOINT
 
 # Base url for the Verify and Facelist/Large Facelist operations
 IMAGE_BASE_URL = 'https://raw.githubusercontent.com/Azure-Samples/cognitive-services-sample-data-files/master/Face/images/'
