@@ -5,6 +5,7 @@ from constantes import *
 from pprint import pprint
 from werkzeug.utils import secure_filename
 import os
+import base64
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -14,6 +15,27 @@ UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+
+
+
+@app.route('/get_list_person_groups',methods = ['POST', 'GET'])
+def get_list_person_groups():
+    if request.method == 'GET':
+        # data = request.json
+        porfa = list_person_groups()
+        return (porfa)
+    else:
+        return("no post")
+
+@app.route('/get_list_person_group_persons',methods = ['POST', 'GET'])
+def get_list_person_group_persons():
+    if request.method == 'GET':
+        data = request.json
+        porfa = list_person_group_persons(data['groupid'])
+        return (porfa)
+    else:
+        return("no post")
+
 @app.route('/post_create_person_group',methods = ['POST', 'GET'])
     #NOW we get the post request from the client
 def post_create_person_group():
@@ -22,15 +44,6 @@ def post_create_person_group():
         pprint(vars(request))
         porfa = create_person_group(data['groupid'])
         return {"funciona": "si"}
-    else:
-        return("no post")
-
-@app.route('/get_list_person_groups',methods = ['POST', 'GET'])
-def get_list_person_groups():
-    if request.method == 'GET':
-        # data = request.json
-        porfa = list_person_groups()
-        return (porfa)
     else:
         return("no post")
 
@@ -71,10 +84,24 @@ def post_upload():
                 flash('No selected file')
                 return redirect(request.url)
             if file and allowed_file(file.filename):
-                filename = secure_filename(file.filename)
+                #We get the file extension:
+                extension = file.filename.rsplit('.', 1)[1].lower()
+                print("extension: " + extension)
+                #we set the filename to the current time in miliseconds
+                filename = str(int(time.time())) + "." + extension
+                print("filename: " + filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                #we get the encode64 of the image
+                
 
-            return {"status": "ok"}
+
+
+                with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") as image_file:
+                    print("type(image_file): " + str(type(image_file)))
+                #     encoded_string = base64.b64encode(image_file.read())
+                #     print("encoded_string: " + str(encoded_string))
+
+            return {"encoded_string": "wena"}
         else:
             return("no post")
     except Exception as e:

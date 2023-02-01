@@ -15,6 +15,7 @@ from msrest.authentication import CognitiveServicesCredentials
 from azure.cognitiveservices.vision.face.models import TrainingStatusType, Person, QualityForRecognition
 from constantes import * #kEY1, ENDPOINT, CONFIANZA
 import csv
+from pprint import pprint
 
 # This key will serve all examples in this document.
 KEY = KEY1
@@ -42,7 +43,39 @@ app.config['CORS_HEADERS'] = 'Access-Control-Allow-Origin'
 
 # response.headers.add('', '*')
 
+def list_person_groups():
+    '''
+    List all PersonGroups
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # List all Person Groups
+        person_groups = face_client.person_group.list() #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
+        new_list = []
+        for person_group in person_groups:
+            new_list.append(person_group.name)
+        return(new_list)
+    except Exception as e:
+        print("Error en list_person_groups")
+        print(e)
 
+def list_person_group_persons(GroupID):
+    '''
+    List all PersonGroups
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # List all Person Groups
+        person_groups = face_client.person_group_person.list(GroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
+        new_list = []
+        for person_group in person_groups:
+            new_list.append(person_group.name)
+        return(new_list)
+    except Exception as e:
+        print("Error en list_person_group_persons")
+        print(e)
 
 def create_person_group(PersonGroupID,recognition_model = "recognition_04"):
     '''
@@ -70,22 +103,6 @@ def create_person_group(PersonGroupID,recognition_model = "recognition_04"):
         print("Error en create_person_group")
         print(e)
 
-def list_person_groups():
-    '''
-    List all PersonGroups
-    '''
-    try:
-        # Create an authenticated FaceClient.
-        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
-        # List all Person Groups
-        person_groups = face_client.person_group.list() #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
-        new_list = []
-        for person_group in person_groups:
-            new_list.append(person_group.name)
-        return(new_list)
-    except Exception as e:
-        print("Error en list_person_groups")
-        print(e)
 
 def delete_person_group(PersonGroupID):
     '''
@@ -111,19 +128,30 @@ def create_person(PersonGroupID, name):
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Create empty Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
         person = face_client.person_group_person.create(PersonGroupID, name=name) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group-person/create?tabs=HTTP#person
-        
+        print("Person created: ")
+        pprint(person)
+        #WE get the person id:
+        # personID = person["personId"]
+        print("Person ID: ", person.person_id)
         file = open("person.csv", "a", newline='')
         writer = csv.writer(file)
-        writer.writerow({PersonGroupID})
+        writer.writerow([name]  + [person.person_id] + [PersonGroupID])
         file.close()
         return {"status": "ok"}
     except Exception as e:
         print("Error en create_person")
         print(e)
+        return {"status": "error"}
     
-# def photo_to_person(PersonGroupID, personID, encoded_image):
-#     face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
-#     face_client.person
+def photo_to_person(PersonGroupID, personID, encoded_image):
+    try:
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, encoded_image)
+        pprint(person)
+        return {"status": "ok"}
+    except Exception as e:
+        print("Error en photo_to_person")
+        print(e)
 
 
 

@@ -32,6 +32,7 @@ export function FileUpload(){
         })
         .then(res => { // then print response status
             console.log("good")
+            console.log('res', res);
         })
         console.log('File Uploaded');
     }
