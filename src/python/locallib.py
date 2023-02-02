@@ -77,7 +77,7 @@ def list_person_group_persons(GroupID):
         print("Error en list_person_group_persons")
         print(e)
 
-def create_person_group(PersonGroupID,recognition_model = "recognition_04"):
+def create_person_group(PersonGroupID,userData="",recognition_model = "recognition_04"):
     '''
     Create the PersonGroup
     '''
@@ -86,7 +86,7 @@ def create_person_group(PersonGroupID,recognition_model = "recognition_04"):
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Create empty Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
         print('Person group aaaaaaa:', PersonGroupID)
-        face_client.person_group.create(person_group_id=PersonGroupID, name=PersonGroupID, recognition_model=recognition_model) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/create?tabs=HTTP
+        face_client.person_group.create(person_group_id=PersonGroupID, name=PersonGroupID, recognition_model=recognition_model,user_data=userData) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/create?tabs=HTTP
         # # Define woman friend
         # woman = face_client.person_group_person.create(PersonGroupID, name="Woman") #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group-person/create?tabs=HTTP#person
         # # Define man friend
@@ -119,7 +119,7 @@ def delete_person_group(PersonGroupID):
         print("Error en delete_person_group")
         print(e)
 
-def create_person(PersonGroupID, name):
+def create_person(PersonGroupID, name, userData=""):
     '''
     Create a new person in a specified person group.
     '''
@@ -127,7 +127,7 @@ def create_person(PersonGroupID, name):
         # Create an authenticated FaceClient.
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Create empty Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
-        person = face_client.person_group_person.create(PersonGroupID, name=name) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group-person/create?tabs=HTTP#person
+        person = face_client.person_group_person.create(PersonGroupID, name=name,user_data=userData) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group-person/create?tabs=HTTP#person
         print("Person created: ")
         pprint(person)
         #WE get the person id:

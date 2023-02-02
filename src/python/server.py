@@ -42,7 +42,7 @@ def post_create_person_group():
     if request.method == 'POST':
         data = request.json
         pprint(vars(request))
-        porfa = create_person_group(data['groupid'])
+        porfa = create_person_group(data['groupid'],data['userData'])
         return {"funciona": "si"}
     else:
         return("no post")
@@ -68,7 +68,7 @@ def delete_delete_list_persons():
 def post_create_person():
     if request.method == 'POST':
         data = request.json
-        porfa = create_person(data['groupid'], data['name'])
+        porfa = create_person(data['groupid'], data['name'], data['userData'])
         return (porfa)
     else:
         return("no post")
@@ -97,6 +97,8 @@ def post_upload():
 
 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") as image_file:
+                    #Creo que si mandas image_file a la funcion de photo_to_person, no hace falta que lo codifiques a base64
+                    photo_to_person(PersonGroupID, personID, encoded_image)
                     print("type(image_file): " + str(type(image_file)))
                 #     encoded_string = base64.b64encode(image_file.read())
                 #     print("encoded_string: " + str(encoded_string))

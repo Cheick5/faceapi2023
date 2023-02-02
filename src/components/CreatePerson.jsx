@@ -21,11 +21,10 @@ function CreatePerson() {
     const [list, setList] = useState([])
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
+    const [Fname, setFname] = useState("")
+    const [Lname, setLname] = useState("")
+    const [rut, setRut] = useState("")
     
-    useEffect(() => {
-        setErrMsg('');
-    }, [person])
-
 
 
     const handleSelect = async (e) => {
@@ -53,11 +52,13 @@ function CreatePerson() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("person" + person);
-
+        console.log("nombre: " + Fname);
+        console.log("apellidos: " + Lname);
+        console.log("rut: " + rut);
+        
         try {
             const response = await axios.post('http://localhost:5000/post_create_person',
-                { "groupid": groupid,"name": person},
+                { "groupid": groupid,"name": Fname,"userData" : "{lastName: "+ Lname +", rut: "+ rut +"}"},
 
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -96,17 +97,18 @@ function CreatePerson() {
                             {list.map((e,key) => {
                                return <option key={key} value={e}> {e} </option>
                             })}
-                            
-                            
-
                         </select>
                         </label>
                         <br></br><br></br>
                     </form>
                     <form onSubmit={handleSubmit}>
-                        <div className="input-field">
-                            
-                            <input name = "person" type='text' value={person} placeholder= 'Ej: Manuel Blanco' required onChange={(e) => setPerson(e.target.value)}/>
+                        <div className="input-field"  >
+                            <input name = "first_name" type='text' value={Fname} placeholder= 'Ej: Manuel ' required onChange={(e) => setFname(e.target.value)}/>
+                        <br></br><br></br>
+                            <input name = "last_name" type='text' value={Lname} placeholder= 'Ej: Blanco' required onChange={(e) => setLname(e.target.value)}/>
+                        <br></br><br></br>
+                            <input name = "rut" type='text' value={rut} placeholder= 'Ej: 11233333' required onChange={(e) => setRut(e.target.value)}/>
+                        <br></br><br></br>
                             <i className="uil uil-user"></i>
                         </div> 
                         <button trype = "buttom"style = {{marginBottom : "2rem"}} >Save</button>
