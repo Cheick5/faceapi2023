@@ -58,7 +58,7 @@ function CreatePerson() {
         
         try {
             const response = await axios.post('http://localhost:5000/post_create_person',
-                { "groupid": groupid,"name": Fname,"userData" : "{lastName: "+ Lname +", rut: "+ rut +"}"},
+                { "groupid": groupid,"name": Fname,"userData" : ""+ Lname +","+ rut},
 
                 {
                     headers: { 'Content-Type': 'application/json' },

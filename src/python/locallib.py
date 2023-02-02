@@ -16,7 +16,7 @@ from azure.cognitiveservices.vision.face.models import TrainingStatusType, Perso
 from constantes import * #kEY1, ENDPOINT, CONFIANZA
 import csv
 from pprint import pprint
-
+from querysBBDD import *
 # This key will serve all examples in this document.
 KEY = KEY1
 # This endpoint will be used in all examples in this quickstart.
@@ -135,8 +135,10 @@ def create_person(PersonGroupID, name, userData=""):
         print("Person ID: ", person.person_id)
         file = open("person.csv", "a", newline='')
         writer = csv.writer(file)
-        writer.writerow([name]  + [person.person_id] + [PersonGroupID])
+        split_userData = userData.split(",")
+        writer.writerow([name]  + [split_userData[0]] + [split_userData[1]] + [person.person_id] + [PersonGroupID])
         file.close()
+        insert_person(name, split_userData[0], split_userData[1], person.person_id, PersonGroupID)
         return {"status": "ok"}
     except Exception as e:
         print("Error en create_person")
