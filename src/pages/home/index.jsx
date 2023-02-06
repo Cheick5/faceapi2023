@@ -4,7 +4,6 @@ import CreatePerson from '../../components/CreatePerson';
 import AddCourse from '../../components/AddCourse';
 import DeletePersonGroup from '../../components/DeletePersonGroup'
 import FileUpload  from '../../components/FileUpload';
-import Addperson  from '../../components/Addperson';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Index() {
@@ -38,7 +37,7 @@ export function Index() {
                     <AddCourse/>
                     </div>
                 </div>
-                <Addperson/>
+                
             
             
             

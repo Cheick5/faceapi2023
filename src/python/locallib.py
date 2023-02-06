@@ -59,6 +59,24 @@ def list_person_groups():
     except Exception as e:
         print("Error en list_person_groups")
         print(e)
+def list_person_id(GroupID):
+    '''
+    List all PersonGroups
+     '''
+    try:
+            
+         # Create an authenticated FaceClient.
+            face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+         # List all Person Groups
+            person_groups = face_client.person_group_person.list(GroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
+            new_list = []
+            for person_group in person_groups:
+                new_list.append(person_group.person_id) #TODO: cambiar mas tarde a person_id o name
+            #print(new_list)
+            return(new_list)
+    except Exception as e:
+         print("Error en list_person_groups")
+         print(e)
 
 def list_person_group_persons(GroupID):
     '''

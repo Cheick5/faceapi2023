@@ -16,7 +16,18 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
-
+@app.route('/get_list_person_id',methods = ['POST', 'GET'])
+def get_list_person_id():
+    try: 
+        if request.method == 'POST':
+            data = request.json
+            porfa = list_person_id(data["groupid"])
+            return (porfa)
+        else:
+            return("no post")
+    except Exception as e:
+        print(e)
+        return {"status": "no ok"}
 
 @app.route('/get_list_person_groups',methods = ['POST', 'GET'])
 def get_list_person_groups():
@@ -79,7 +90,9 @@ def allowed_file(filename):     return '.' in filename and filename.rsplit('.', 
 def post_upload():
     try:
         if request.method in ['POST' , 'GET']:
+            
             file = request.files['file']
+            data = request.form
             if file.filename == '':
                 flash('No selected file')
                 return redirect(request.url)
@@ -94,17 +107,14 @@ def post_upload():
                 #we get the encode64 of the image
                 
 
-                # PersonGroupID = "uai"
-                # personID = "00505073-402f-4bb7-9cdf-d1b7c6851099"
+                PersonGroupID = data['groupid']
+                personID = data['personid']
 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") as image_file:
                     #Creo que si mandas image_file a la funcion de photo_to_person, no hace falta que lo codifiques a base64
                     photo_to_person(PersonGroupID, personID, image_file)
                     print("type(image_file): " + str(type(image_file)))
-                    print("esta vivo y rinde dos kilometros por litro")
-                #     encoded_string = base64.b64encode(image_file.read())
-                #     print("encoded_string: " + str(encoded_string))
-
+                    print("Archivo subido con exito")
             return {"encoded_string": "wena"}
         else:
             return("no post")
