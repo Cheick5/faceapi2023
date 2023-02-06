@@ -102,11 +102,14 @@ function CreatePerson() {
                         <br></br><br></br>
                     </form>
                     <form onSubmit={handleSubmit}>
-                        <div className="input-field"  >
+                        <div className="input-field" >
+                            <label for="first_name">Nombre</label>
                             <input name = "first_name" type='text' value={Fname} placeholder= 'Ej: Manuel ' required onChange={(e) => setFname(e.target.value)}/>
                         <br></br><br></br>
+                            <label for="last_name">Apellidos</label>
                             <input name = "last_name" type='text' value={Lname} placeholder= 'Ej: Blanco' required onChange={(e) => setLname(e.target.value)}/>
                         <br></br><br></br>
+                            <label for="rut">Rut sin puntos ni digito verificador</label>
                             <input name = "rut" type='text' value={rut} placeholder= 'Ej: 11233333' required onChange={(e) => setRut(e.target.value)}/>
                         <br></br><br></br>
                             <i className="uil uil-user"></i>

@@ -84,6 +84,15 @@ def post_create_person():
     else:
         return("no post")
 
+@app.route('/post_create_course',methods = ['POST', 'GET'])
+def post_create_course():
+    if request.method == 'POST':
+        data = request.json
+        porfa = insert_course(data['name'], data['year'], data['semester'],data["short_name"])
+        return (porfa)
+    else:
+        return("no post")
+
 def allowed_file(filename):     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/upload', methods=['POST', 'GET'])

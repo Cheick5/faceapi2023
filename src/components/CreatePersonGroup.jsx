@@ -62,6 +62,7 @@ function CreatePersonGroup() {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <form onSubmit={handleSubmit}>
                         <div className="input-field">
+                            <label for="groupid">GroupId</label>
                             <input name = "groupid" type='text' value={groupid} placeholder= 'Ej: Presidentes' required onChange={(e) => setGroupid(e.target.value)}/>
                             <i className="uil uil-user"></i>
                         </div> 
