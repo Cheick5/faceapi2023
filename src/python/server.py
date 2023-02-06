@@ -94,12 +94,14 @@ def post_upload():
                 #we get the encode64 of the image
                 
 
-
+                # PersonGroupID = "uai"
+                # personID = "00505073-402f-4bb7-9cdf-d1b7c6851099"
 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") as image_file:
                     #Creo que si mandas image_file a la funcion de photo_to_person, no hace falta que lo codifiques a base64
-                    # photo_to_person(PersonGroupID, personID, encoded_image)
+                    photo_to_person(PersonGroupID, personID, image_file)
                     print("type(image_file): " + str(type(image_file)))
+                    print("esta vivo y rinde dos kilometros por litro")
                 #     encoded_string = base64.b64encode(image_file.read())
                 #     print("encoded_string: " + str(encoded_string))
 

@@ -22,9 +22,15 @@ def select_all_person():
         print(row)
         row = cursor.fetchone()
 
-def insert_person(nombre,apellido,rut,PersonId,PersonGroupId):
+def insert_person(PersonId, First_Name,Last_Name,Rut,Person_Group):
     cursor = connect()
-    cursor.execute("INSERT INTO Person (Person_Id, First_Name, Last_Name, Rut, Person_Group) VALUES (?,?,?,?,?)", PersonId, nombre, apellido, rut, PersonGroupId)
+    cursor.execute("INSERT INTO Person (Person_Id, First_Name, Last_Name, Rut, Person_Group) VALUES (?,?,?,?,?)", PersonId, First_Name,Last_Name,Rut,Person_Group)
+    cursor.commit()
+    print("insertado")
+
+def insert_course(Name,Year,Semester,Short_Name):
+    cursor = connect()
+    cursor.execute("INSERT INTO Course (Name,Year,Semester,Short_Name) VALUES (?,?,?,?,?)", Name,Year,Semester,Short_Name)
     cursor.commit()
     print("insertado")
 
