@@ -30,9 +30,10 @@ def insert_person(PersonId, First_Name,Last_Name,Rut,Person_Group):
 
 def insert_course(Name,Year,Semester,Short_Name):
     cursor = connect()
-    cursor.execute("INSERT INTO Course (Name,Year,Semester,Short_Name) VALUES (?,?,?,?,?)", Name,Year,Semester,Short_Name)
+    cursor.execute("INSERT INTO Course (Name,Year,Semester,Short_Name) VALUES (?,?,?,?)", Name,Year,Semester,Short_Name)
     cursor.commit()
     print("insertado")
+    return {"funciona": "si"}
 
 if __name__ == "__main__":
     select_all_person()

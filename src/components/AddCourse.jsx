@@ -48,13 +48,10 @@ const AddCourse = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("nombre: " + Fname);
-        console.log("apellidos: " + Lname);
-        console.log("rut: " + rut);
         
         try {
-            const response = await axios.post('http://localhost:5000/post_create_person',
-                { "groupid": groupid,"name": Fname,"userData" : ""+ Lname +","+ rut},
+            const response = await axios.post('http://localhost:5000/post_create_course',
+                {"name": name,"year": year,"semester": semester,"short_name": short_name},
 
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -69,6 +66,7 @@ const AddCourse = () => {
         } catch (err) {
             if (!err?.response) {
                 setErrMsg('No Server Response');
+                console.log('No Server Response');
             } else if (err.response?.status === 409) {
                 setErrMsg('Username Taken');
             } else {
@@ -100,13 +98,17 @@ const AddCourse = () => {
                         </form> */}
                         <form onSubmit={handleSubmit}>
                             <div className="input-field"  >
+                                <label for="Name">Nombre</label>
                                 <input name = "Name" type='text' value={name} placeholder= 'Ej: DISEÑO DE SOFTWARE Sec.1' required onChange={(e) => setName(e.target.value)}/>
                             <br></br><br></br>
+                                <label for="Año">Año</label>
                                 <input name = "Year" type='text' value={year} placeholder= 'Ej: 2022' required onChange={(e) => setYear(e.target.value)}/>
                             <br></br><br></br>
+                                <label for="Semester">Semestre</label>
                                 <input name = "Semester" type='text' value={semester} placeholder= 'Ej: 2' required onChange={(e) => setSemester(e.target.value)}/>
                             <br></br><br></br>
-                                <input name = "Short_Name" type='text' value={short_name} placeholder= 'Ej: TICS316' required onChange={(e) => setShort_Name(e.target.value)}/>
+                                <label for="Short_Name">Nombre corto</label>
+                                <input name = "Short_Name" type='text' value={short_name} placeholder= 'Ej: TICS316' required onChange={(e) => setShort_name(e.target.value)}/>
                             <br></br><br></br>
                                 <i className="uil uil-user"></i>
                             </div> 
