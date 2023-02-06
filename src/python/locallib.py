@@ -71,7 +71,7 @@ def list_person_id(GroupID):
             person_groups = face_client.person_group_person.list(GroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
             new_list = []
             for person_group in person_groups:
-                
+
                 new_list.append(f"{person_group.name},{person_group.person_id},{person_group.user_data}")
                 #new_list.append(person_group.person_id) #TODO: cambiar mas tarde a person_id o name
             #print(new_list)
@@ -133,6 +133,7 @@ def delete_person_group(PersonGroupID):
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Delete an existing Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
         print('Person group aaaaaaa:', PersonGroupID)
+        #TODO: añadir version de delete persongroup person  face_client.person_group_person delete
         face_client.person_group.delete(person_group_id=PersonGroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
         return {"status": "ok"}
     except Exception as e:
