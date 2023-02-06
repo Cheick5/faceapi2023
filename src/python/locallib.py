@@ -71,7 +71,9 @@ def list_person_id(GroupID):
             person_groups = face_client.person_group_person.list(GroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
             new_list = []
             for person_group in person_groups:
-                new_list.append(person_group.person_id) #TODO: cambiar mas tarde a person_id o name
+                
+                new_list.append(f"{person_group.name},{person_group.person_id},{person_group.user_data}")
+                #new_list.append(person_group.person_id) #TODO: cambiar mas tarde a person_id o name
             #print(new_list)
             return(new_list)
     except Exception as e:

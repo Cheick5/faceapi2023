@@ -125,9 +125,12 @@ export function FileUpload(){
                             <select className="input-select"  onClick = {handleSelectPerson} value={personId} onChange={(e) => setPersonId(e.target.value)}>
                             <option value=""> -- Ej: 13289123809 -- </option>
 
-                            {listPersonId.map((e,key) => {
-                                return <option key={key} value={e}> {e} </option>
-                            })}
+                            {listPersonId.map((item) => (
+                                
+                                <option key={item.split(',')[1]} value={item.split(',')[1]}>
+                                {item.split(',')[0]+ " "+ item.split(',')[2]+ " Rut: " + item.split(',')[3]}
+                                </option>
+                            ))}
                             </select>
                         </div>
                                 <h2 style= {{marginTop: "2rem"}} className="text-uppercase text-center mb-5">Selecciona un archivo :</h2>
