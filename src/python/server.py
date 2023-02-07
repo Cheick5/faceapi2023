@@ -61,15 +61,23 @@ def post_create_person_group():
 @app.route('/delete_delete_list_persons',methods = ['GET', 'DELETE'])
 def delete_delete_list_persons():
     if request.method == 'DELETE':
-        print("ola")
         print(request)
-        print("pprint :")
-        # pprint(vars(request))
         data = request.json
-        print("data groupid")
         print(data['groupid'])
-        print("ahora viene porfa")
         porfa = delete_person_group(data['groupid'])
+        print(porfa)
+        return (porfa)
+    else:
+        return("La request tiene que ser DELETE")
+
+@app.route('/delete_persons',methods = ['GET', 'DELETE'])
+def delete_persons():
+    if request.method == 'DELETE':
+        print(request)
+        data = request.json
+        print(data['groupId'])
+        print("este es el person id: ",data['personId'])
+        porfa = delete_person_group_person(data['groupId'], data['personId'])
         print(porfa)
         return (porfa)
     else:
@@ -79,7 +87,7 @@ def delete_delete_list_persons():
 def post_create_person():
     if request.method == 'POST':
         data = request.json
-        porfa = create_person(data['groupid'], data['name'])
+        porfa = create_person(data['groupid'], data['name'],data["userData"])
         return (porfa)
     else:
         return("no post")

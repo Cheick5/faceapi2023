@@ -123,6 +123,23 @@ def create_person_group(PersonGroupID,userData="",recognition_model = "recogniti
         print("Error en create_person_group")
         print(e)
 
+def delete_person_group_person(PersonGroupID,personId):
+    '''
+    Delete the Person of a PersonGroup
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # Delete an existing Person of a PersonGroup. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
+        
+        print('Person id: ', personId)
+        
+        face_client.person_group_person.delete(person_group_id=PersonGroupID, person_id = personId)#https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
+        return {"status": "ok"}
+    except Exception as e:
+        print("Error en delete_person_group")
+        print(e)
+        return {'status': 'no ok'}
 
 def delete_person_group(PersonGroupID):
     '''
@@ -133,7 +150,6 @@ def delete_person_group(PersonGroupID):
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Delete an existing Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
         print('Person group aaaaaaa:', PersonGroupID)
-        #TODO: añadir version de delete persongroup person  face_client.person_group_person delete
         face_client.person_group.delete(person_group_id=PersonGroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
         return {"status": "ok"}
     except Exception as e:
@@ -157,9 +173,9 @@ def create_person(PersonGroupID, name, userData=""):
         file = open("person.csv", "a", newline='')
         writer = csv.writer(file)
         split_userData = userData.split(",")
-        writer.writerow([name]  + [split_userData[0]] + [split_userData[1]] + [person.person_id] + [PersonGroupID])
+        writer.writerow([person.person_id] +  [name]  + [split_userData[0]] + [split_userData[1]] + [PersonGroupID])
         file.close()
-        insert_person(name, split_userData[0], split_userData[1], person.person_id, PersonGroupID)
+        insert_person( person.person_id, name, split_userData[0], split_userData[1], PersonGroupID)
         return {"status": "ok"}
     except Exception as e:
         print("Error en create_person")

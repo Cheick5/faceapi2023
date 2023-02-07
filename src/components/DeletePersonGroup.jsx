@@ -10,7 +10,7 @@ import {
     MDBCardBody,
   }
   
-  from 'mdb-react-ui-kit';;
+  from 'mdb-react-ui-kit';
 
 
 function DeletePersonGroup() {
