@@ -53,7 +53,7 @@ def post_create_person_group():
     if request.method == 'POST':
         data = request.json
         pprint(vars(request))
-        porfa = create_person_group(data['groupid'],data['userData'])
+        porfa = create_person_group(data['groupid'])
         return {"funciona": "si"}
     else:
         return("no post")

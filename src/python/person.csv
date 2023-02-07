@@ -1,21 +1,4 @@
 nombre,PersonId,PersonGroupId,apellido,rut
-hola9,140b3309-8cbb-468e-93cf-8de5111f58c9
-hola10,5f17ba7d-2eb5-4925-a0bf-743de64063ff,pruebaxdxd
-nose,b0404145-6319-4902-9e3b-dbda924569a7,nunca
-nose2,86873b44-83c4-422c-92a9-8715152bd80f,nunca
-nose,f3cbed55-14d9-48af-b2ae-fec0df0ec8be,nunca
-Manuel,5499ea0e-486f-4786-8be4-9e6fa0432608,uai
-Manuel,4d0c8755-2798-4007-b863-b34629174a2e,uai
-pablo,83ea8deb-c23e-4881-9a39-651bc60f4d2b,uai
-pablo,00505073-402f-4bb7-9cdf-d1b7c6851099,uai
-pablo,7fd9377e-571c-43d3-8e2b-9b7b79a90ff7,uai
-Manuel,269305eb-b22d-4c46-a8a8-407c905f2a21,uai
-Manuel,c3e84f77-3177-430a-87d8-05df7b26e5bf,uai
-Manuel,c660435b-0b22-41c3-be43-4f0709c823ef,uai
-Manuel,359e3e1f-263f-4e69-a3d1-f752cde96be7,uai
-Manuel,f0e19521-ea93-4afb-a0bc-72eef7ad6c2c,uai,"{lastName: Blanco6, rut: 19829104}"
-Manuel,f191c5dc-6772-49f5-a206-6d6021c2a159,uai,Blanco7,19829104
-
 nombre,apellido,rut,PersonId,PersonGroupIdManuel,Blanco7,19829104,866bb0c6-15bc-4b13-8925-450d92268424,uai
 Nicolas,Cenzano,18860938,5076a903-c337-458b-a150-19ada4bdcb5d,uai
 Pablo,Gonzalez,20440567,9d672e77-3a05-4b16-83e4-b0ded259a40b,uai
@@ -32,3 +15,5 @@ f658336f-0eb9-44d6-b958-ea761e7c9302,Prueba4,Delete4,303330303,uai
 fffc9f97-20bd-45c4-8f76-cfefa268e7b6,Prueba4,Delete4,303330303,uai
 5b915200-37f2-4df0-ae4b-0d847c0bf64d,Prueba,Delete,303330303,uai
 5367694a-d424-418f-b797-fc64854995f8,Prueba,Delete,303330303,uai
+992d6561-5c70-4c9e-9c0c-e49faa81de5b,Ra�l,Auronplay,18854867,youtubers
+3701a009-50e7-4e2a-90fa-8d39d7588dcc,Illo,Juan,19844857,youtubers
