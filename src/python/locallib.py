@@ -132,9 +132,8 @@ def delete_person_group_person(PersonGroupID,personId):
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Delete an existing Person of a PersonGroup. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
         
-        print('Person id: ', personId)
-        
         face_client.person_group_person.delete(person_group_id=PersonGroupID, person_id = personId)#https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
+        delete_person( personId)
         return {"status": "ok"}
     except Exception as e:
         print("Error en delete_person_group")
@@ -149,7 +148,6 @@ def delete_person_group(PersonGroupID):
         # Create an authenticated FaceClient.
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Delete an existing Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
-        print('Person group aaaaaaa:', PersonGroupID)
         face_client.person_group.delete(person_group_id=PersonGroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
         return {"status": "ok"}
     except Exception as e:

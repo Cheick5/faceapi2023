@@ -35,6 +35,12 @@ def insert_course(Name,Year,Semester,Short_Name):
     print("insertado")
     return {"funciona": "si"}
 
+def delete_person(PersonId):
+    cursor = connect()
+    cursor.execute("DELETE FROM Person WHERE Person_Id = ?", (PersonId,))
+    cursor.commit()
+    print("Persona borrada")
+
 if __name__ == "__main__":
     select_all_person()
 
