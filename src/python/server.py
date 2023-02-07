@@ -79,7 +79,7 @@ def delete_delete_list_persons():
 def post_create_person():
     if request.method == 'POST':
         data = request.json
-        porfa = create_person(data['groupid'], data['name'])
+        porfa = create_person(data['groupid'], data['name'], data['userData'])
         return (porfa)
     else:
         return("no post")

@@ -155,10 +155,14 @@ def create_person(PersonGroupID, name, userData=""):
         print("Person ID: ", person.person_id)
         file = open("person.csv", "a", newline='')
         writer = csv.writer(file)
+        print("userData")
+        print(userData)
         split_userData = userData.split(",")
-        writer.writerow([name]  + [split_userData[0]] + [split_userData[1]] + [person.person_id] + [PersonGroupID])
+        print("split_userData")
+        print(split_userData)
+        writer.writerow([person.person_id] +  [name]  + [split_userData[0]] + [split_userData[1]] + [PersonGroupID])
         file.close()
-        insert_person(name, split_userData[0], split_userData[1], person.person_id, PersonGroupID)
+        insert_person( person.person_id, name, split_userData[0], split_userData[1], PersonGroupID)
         return {"status": "ok"}
     except Exception as e:
         print("Error en create_person")
