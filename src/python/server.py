@@ -129,9 +129,14 @@ def post_upload():
 
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") as image_file:
                     #Creo que si mandas image_file a la funcion de photo_to_person, no hace falta que lo codifiques a base64
-                    photo_to_person(PersonGroupID, personID, image_file)
-                    print("type(image_file): " + str(type(image_file)))
-                    print("Archivo subido con exito")
+                    status = photo_to_person(PersonGroupID, personID, image_file)
+                    print(status)
+                    if status == 'ok':
+                        print("type(image_file): " + str(type(image_file)))
+                        print("Archivo subido con exito")
+
+                    else: 
+                        print("File upload failed:", status)
             return {"encoded_string": "wena"}
         else:
             return("no post")

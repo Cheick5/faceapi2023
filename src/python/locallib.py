@@ -180,15 +180,54 @@ def create_person(PersonGroupID, name, userData=""):
         print(e)
         return {"status": "error"}
     
-def photo_to_person(PersonGroupID, personID, encoded_image):
+# def photo_to_person(PersonGroupID, personID, encoded_image):
+#     try:
+#         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+#         person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, encoded_image)
+#         pprint(person)
+#         return {"status": "ok"}
+#     except Exception as e:
+#         print("Error en photo_to_person")
+#         print(e)
+def photo_to_person(PersonGroupID, personID, image):
     try:
-        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
-        person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, encoded_image)
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+        sufficientQuality = True
+        detected_faces = face_client.face.detect_with_stream(image=image, detection_model='detection_01', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
+        for face in detected_faces:
+            print(face.face_attributes.quality_for_recognition)
+            print(face.face_attributes.quality_for_recognition != QualityForRecognition.medium)
+            print(face.face_attributes.quality_for_recognition == QualityForRecognition.high)
+        for face in detected_faces:
+            if face.face_attributes.quality_for_recognition != QualityForRecognition.medium and face.face_attributes.quality_for_recognition != QualityForRecognition.high: #TODO: Probar con medium or high
+                sufficientQuality = False
+                break
+            person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, image)
+            print("face {} added to person {}".format(face.face_id, personID))
+        
+        if not sufficientQuality:
+            return {"status": "Image quality not sufficient for recognition"}
+        
         pprint(person)
         return {"status": "ok"}
     except Exception as e:
-        print("Error en photo_to_person")
+        print("Error in photo_to_person")
         print(e)
+
+
+# # Add to man person
+# for image in man_images:
+#     # Check if the image is of sufficent quality for recognition.
+#     sufficientQuality = True
+#     detected_faces = face_client.face.detect_with_url(url=image, detection_model='detection_03', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
+#     for face in detected_faces:
+#         if face.face_attributes.quality_for_recognition != QualityForRecognition.high:
+#             sufficientQuality = False
+#             break
+#         face_client.person_group_person.add_face_from_url(PERSON_GROUP_ID, man.person_id, image)
+#         print("face {} added to person {}".format(face.face_id, man.person_id))
+
+#     if not sufficientQuality: continue
 
 '''
 Train PersonGroup
@@ -241,19 +280,6 @@ def train_personGroup(PERSON_GROUP_ID):
 
 #     if not sufficientQuality: continue
 
-# # Add to man person
-# for image in man_images:
-#     # Check if the image is of sufficent quality for recognition.
-#     sufficientQuality = True
-#     detected_faces = face_client.face.detect_with_url(url=image, detection_model='detection_03', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
-#     for face in detected_faces:
-#         if face.face_attributes.quality_for_recognition != QualityForRecognition.high:
-#             sufficientQuality = False
-#             break
-#         face_client.person_group_person.add_face_from_url(PERSON_GROUP_ID, man.person_id, image)
-#         print("face {} added to person {}".format(face.face_id, man.person_id))
-
-#     if not sufficientQuality: continue
 
 # # Add to child person
 # for image in child_images:
