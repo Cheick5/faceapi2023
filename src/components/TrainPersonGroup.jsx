@@ -17,6 +17,7 @@ function CreatePersonGroup() {
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
     
+   
     const handleTrain = async (e) => {
         console.log("Entrenando")
         e.preventDefault();
@@ -51,8 +52,8 @@ function CreatePersonGroup() {
             } else {
                 setErrMsg('Registration Failed')
             }
+            console.log(errMsg)
           }
-          console.log(errMsg)
         }
     return ( 
     <>
