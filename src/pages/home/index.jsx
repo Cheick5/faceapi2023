@@ -2,6 +2,7 @@ import React from 'react';
 import CreatePersonGroup from '../../components/CreatePersonGroup';
 import CreatePerson from '../../components/CreatePerson';
 import AddCourse from '../../components/AddCourse';
+import Enrolment from '../../components/Enrolment';
 import DeletePersonGroup from '../../components/DeletePersonGroup'
 import FileUpload  from '../../components/FileUpload';
 import DeletePerson from '../../components/DeletePerson';
@@ -37,6 +38,11 @@ export function Index() {
                 <div className="row" style= {{marginTop: "1rem" , marginBottom: "1rem"}} >
                     <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
                     <AddCourse/>
+                    </div>
+                </div>
+                <div className="row" style= {{marginTop: "1rem" , marginBottom: "1rem"}} >
+                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
+                    <Enrolment/>
                     </div>
                 </div>
                 

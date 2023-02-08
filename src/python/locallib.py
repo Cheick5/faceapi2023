@@ -170,6 +170,8 @@ def create_person(PersonGroupID, name, userData=""):
         print("Person ID: ", person.person_id)
         file = open("person.csv", "a", newline='')
         writer = csv.writer(file)
+        print("userData")
+        print(userData)
         split_userData = userData.split(",")
         writer.writerow([person.person_id] +  [name]  + [split_userData[0]] + [split_userData[1]] + [PersonGroupID])
         file.close()

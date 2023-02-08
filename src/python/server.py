@@ -87,7 +87,7 @@ def delete_persons():
 def post_create_person():
     if request.method == 'POST':
         data = request.json
-        porfa = create_person(data['groupid'], data['name'],data["userData"])
+        porfa = create_person(data['groupid'], data['name'], data['userData'])
         return (porfa)
     else:
         return("no post")
@@ -97,6 +97,37 @@ def post_create_course():
     if request.method == 'POST':
         data = request.json
         porfa = insert_course(data['name'], data['year'], data['semester'],data["short_name"])
+        return (porfa)
+    else:
+        return("no post")
+
+@app.route('/get_get_person',methods = ['POST', 'GET'])
+def get_person():
+    if request.method == 'GET':
+        # data = request.json
+        porfa = select_all_person()
+        return (porfa)
+    else:
+        return("no post")
+
+@app.route('/get_get_course',methods = ['POST', 'GET'])
+def get_course():
+    if request.method == 'GET':
+        # data = request.json
+        porfa = select_all_course()
+        print(porfa)
+        return (porfa)
+    else:
+        return("no post")
+
+@app.route('/post_enrol_person',methods = ['POST', 'GET'])
+def enrol_person():
+    if request.method == 'POST':
+        data = request.json
+        persona = data["personid"]
+        curso = data["courseid"]
+        porfa = insert_enrolment(persona, curso)
+        print(porfa)
         return (porfa)
     else:
         return("no post")

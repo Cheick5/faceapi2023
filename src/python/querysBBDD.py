@@ -17,10 +17,23 @@ def connect():
 def select_all_person():
     cursor = connect()
     cursor.execute("SELECT * from Person") 
-    row = cursor.fetchone() 
+    row = cursor.fetchone()
+    lista = []
     while row: 
-        print(row)
+        lista.append(list(row))
         row = cursor.fetchone()
+    return lista
+
+
+def select_all_course():
+    cursor = connect()
+    cursor.execute("SELECT * from Course") 
+    row = cursor.fetchone()
+    lista = []
+    while row: 
+        lista.append(list(row))
+        row = cursor.fetchone()
+    return lista
 
 def insert_person(PersonId, First_Name,Last_Name,Rut,Person_Group):
     cursor = connect()
@@ -35,11 +48,19 @@ def insert_course(Name,Year,Semester,Short_Name):
     print("insertado")
     return {"funciona": "si"}
 
+
 def delete_person(PersonId):
     cursor = connect()
     cursor.execute("DELETE FROM Person WHERE Person_Id = ?", (PersonId,))
     cursor.commit()
     print("Persona borrada")
+
+def insert_enrolment(Person_Id,Course_Id):
+    cursor = connect()
+    cursor.execute("INSERT INTO Enrolment (Person_Id, Course_Id) VALUES (?, ?)", (Person_Id, Course_Id))
+    cursor.commit()
+    print(f"insertado persona con person id {Person_Id} en curso con id {Course_Id}")
+    return {"funciona": "si"}
 
 if __name__ == "__main__":
     select_all_person()
