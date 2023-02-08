@@ -5,6 +5,8 @@ import AddCourse from '../../components/AddCourse';
 import Enrolment from '../../components/Enrolment';
 import DeletePersonGroup from '../../components/DeletePersonGroup'
 import FileUpload  from '../../components/FileUpload';
+import DeletePerson from '../../components/DeletePerson';
+import TrainPersonGroup from '../../components/TrainPersonGroup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export function Index() {
@@ -44,7 +46,17 @@ export function Index() {
                     </div>
                 </div>
                 
-            
+                <div>
+                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
+                        <DeletePerson/>
+                    </div>
+                </div>
+                
+                <div>
+                    <div className="col" style = {{justifyContent : "center" , display : "flex", marginTop: '3rem'}}>
+                        <TrainPersonGroup/>
+                    </div>
+                </div>
             
             
             </div>

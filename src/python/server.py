@@ -61,15 +61,23 @@ def post_create_person_group():
 @app.route('/delete_delete_list_persons',methods = ['GET', 'DELETE'])
 def delete_delete_list_persons():
     if request.method == 'DELETE':
-        print("ola")
         print(request)
-        print("pprint :")
-        # pprint(vars(request))
         data = request.json
-        print("data groupid")
         print(data['groupid'])
-        print("ahora viene porfa")
         porfa = delete_person_group(data['groupid'])
+        print(porfa)
+        return (porfa)
+    else:
+        return("La request tiene que ser DELETE")
+
+@app.route('/delete_persons',methods = ['GET', 'DELETE'])
+def delete_persons():
+    if request.method == 'DELETE':
+        print(request)
+        data = request.json
+        print(data['groupId'])
+        print("este es el person id: ",data['personId'])
+        porfa = delete_person_group_person(data['groupId'], data['personId'])
         print(porfa)
         return (porfa)
     else:
@@ -149,18 +157,36 @@ def post_upload():
 
                 PersonGroupID = data['groupid']
                 personID = data['personid']
-
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") as image_file:
                     #Creo que si mandas image_file a la funcion de photo_to_person, no hace falta que lo codifiques a base64
-                    photo_to_person(PersonGroupID, personID, image_file)
-                    print("type(image_file): " + str(type(image_file)))
-                    print("Archivo subido con exito")
+                    # print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    # print(image_file)
+                    status = photo_to_person(PersonGroupID, personID, os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    print(status)
+                    if status == 'ok':
+                        print("type(image_file): " + str(type(image_file)))
+                        print("Archivo subido con exito")
+
+                    else: 
+                        print("File upload failed:", status)
             return {"encoded_string": "wena"}
         else:
             return("no post")
     except Exception as e:
         print(e)
         return {"status": "no ok"}
+
+@app.route('/post_train_personGroup',methods = ['POST', 'GET'])
+    #NOW we get the post request from the client
+def post_train_personGroup():
+    if request.method == 'POST':
+        data = request.json
+        pprint(vars(request))
+        porfa = train_personGroup(data['groupId'])
+        return {"funciona": "si"}
+    else:
+        return("no post")
+
 # @app.route("/post_photo_to_person", methods=['POST'])
 # def post_photo_to_person():
 #     if request.method == 'POST':

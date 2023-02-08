@@ -48,6 +48,13 @@ def insert_course(Name,Year,Semester,Short_Name):
     print("insertado")
     return {"funciona": "si"}
 
+
+def delete_person(PersonId):
+    cursor = connect()
+    cursor.execute("DELETE FROM Person WHERE Person_Id = ?", (PersonId,))
+    cursor.commit()
+    print("Persona borrada")
+
 def insert_enrolment(Person_Id,Course_Id):
     cursor = connect()
     cursor.execute("INSERT INTO Enrolment (Person_Id, Course_Id) VALUES (?, ?)", (Person_Id, Course_Id))
