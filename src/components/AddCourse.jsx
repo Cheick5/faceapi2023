@@ -23,28 +23,6 @@ const AddCourse = () => {
     const errRef = useRef();
     const [errMsg, setErrMsg] = useState('');
 
-    const handleSelect = async (e) => {
-        e.preventDefault();
-        console.log("dropdown")
-        try {
-            const response = await axios.get('http://localhost:5000/get_list_person_groups',  
-                {
-                    headers: { 'Content-Type': 'application/json' }
-                }
-            );
-            setList(response.data);
-        } catch (err) {
-            if (!err?.response) {
-                setErrMsg('No Server Response');
-            } else if (err.response?.status === 409) {
-                setErrMsg('Username Taken');
-            } else {
-                setErrMsg('Registration Failed')
-            }
-            errRef.current.focus();
-        }
-    
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();

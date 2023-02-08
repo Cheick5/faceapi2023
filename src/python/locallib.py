@@ -71,7 +71,7 @@ def list_person_id(GroupID):
             person_groups = face_client.person_group_person.list(GroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/list?tabs=HTTP
             new_list = []
             for person_group in person_groups:
-                
+
                 new_list.append(f"{person_group.name},{person_group.person_id},{person_group.user_data}")
                 #new_list.append(person_group.person_id) #TODO: cambiar mas tarde a person_id o name
             #print(new_list)
@@ -123,6 +123,22 @@ def create_person_group(PersonGroupID,userData="",recognition_model = "recogniti
         print("Error en create_person_group")
         print(e)
 
+def delete_person_group_person(PersonGroupID,personId):
+    '''
+    Delete the Person of a PersonGroup
+    '''
+    try:
+        # Create an authenticated FaceClient.
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+        # Delete an existing Person of a PersonGroup. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
+        
+        face_client.person_group_person.delete(person_group_id=PersonGroupID, person_id = personId)#https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
+        delete_person( personId)
+        return {"status": "ok"}
+    except Exception as e:
+        print("Error en delete_person_group")
+        print(e)
+        return {'status': 'no ok'}
 
 def delete_person_group(PersonGroupID):
     '''
@@ -132,7 +148,6 @@ def delete_person_group(PersonGroupID):
         # Create an authenticated FaceClient.
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
         # Delete an existing Person Group. Person Group ID must be lower case, alphanumeric, and/or with '-', '_'.
-        print('Person group aaaaaaa:', PersonGroupID)
         face_client.person_group.delete(person_group_id=PersonGroupID) #https://learn.microsoft.com/en-us/rest/api/faceapi/person-group/delete?tabs=HTTP
         return {"status": "ok"}
     except Exception as e:
@@ -158,8 +173,6 @@ def create_person(PersonGroupID, name, userData=""):
         print("userData")
         print(userData)
         split_userData = userData.split(",")
-        print("split_userData")
-        print(split_userData)
         writer.writerow([person.person_id] +  [name]  + [split_userData[0]] + [split_userData[1]] + [PersonGroupID])
         file.close()
         insert_person( person.person_id, name, split_userData[0], split_userData[1], PersonGroupID)
@@ -169,16 +182,79 @@ def create_person(PersonGroupID, name, userData=""):
         print(e)
         return {"status": "error"}
     
-def photo_to_person(PersonGroupID, personID, encoded_image):
+# def photo_to_person(PersonGroupID, personID, encoded_image):
+#     try:
+#         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
+#         person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, encoded_image)
+#         pprint(person)
+#         return {"status": "ok"}
+#     except Exception as e:
+#         print("Error en photo_to_person")
+#         print(e)
+def photo_to_person(PersonGroupID, personID, imagen):
+    # image = open(imagen, "r+b")
     try:
-        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY)) #FaceClient es una clase que crea un objeto
-        person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, encoded_image)
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+        sufficientQuality = True
+        detected_faces = face_client.face.detect_with_stream(image=open(imagen, "r+b"), detection_model='detection_01', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
+
+        for face in detected_faces:
+            if face.face_attributes.quality_for_recognition != QualityForRecognition.medium and face.face_attributes.quality_for_recognition != QualityForRecognition.high: #TODO: Probar con medium or high
+                sufficientQuality = False
+                break
+            person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, open(imagen, "r+b"))
+            print("face {} added to person {}".format(face.face_id, personID))
+        if not sufficientQuality:
+            return {"status": "Image quality not sufficient for recognition"}
+        
         pprint(person)
         return {"status": "ok"}
     except Exception as e:
-        print("Error en photo_to_person")
+        print("Error in photo_to_person")
         print(e)
 
+
+# # Add to man person
+# for image in man_images:
+#     # Check if the image is of sufficent quality for recognition.
+#     sufficientQuality = True
+#     detected_faces = face_client.face.detect_with_url(url=image, detection_model='detection_03', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
+#     for face in detected_faces:
+#         if face.face_attributes.quality_for_recognition != QualityForRecognition.high:
+#             sufficientQuality = False
+#             break
+#         face_client.person_group_person.add_face_from_url(PERSON_GROUP_ID, man.person_id, image)
+#         print("face {} added to person {}".format(face.face_id, man.person_id))
+
+#     if not sufficientQuality: continue
+
+'''
+Train PersonGroup
+'''
+# Train the person group
+
+def train_personGroup(PERSON_GROUP_ID):
+    try:
+        #print("pg resource is {}".format(PERSON_GROUP_ID))
+        print('Entro a train person ')
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+        rawresponse = face_client.person_group.train(PERSON_GROUP_ID, raw= True)
+        print(rawresponse)
+
+        while (True):
+            training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
+            print("Training status: {}.".format(training_status.status))
+            print()
+            if (training_status.status is TrainingStatusType.succeeded):
+                break
+            elif (training_status.status is TrainingStatusType.failed):
+                #face_client.person_group.delete(person_group_id=PERSON_GROUP_ID)
+                sys.exit('Training the person group has failed.')
+            time.sleep(5)
+        return {"status": "ok"}    
+    except Exception as e:
+        print("Error en train_personGroup")
+        print(e)
 
 
 
@@ -203,19 +279,6 @@ def photo_to_person(PersonGroupID, personID, encoded_image):
 
 #     if not sufficientQuality: continue
 
-# # Add to man person
-# for image in man_images:
-#     # Check if the image is of sufficent quality for recognition.
-#     sufficientQuality = True
-#     detected_faces = face_client.face.detect_with_url(url=image, detection_model='detection_03', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
-#     for face in detected_faces:
-#         if face.face_attributes.quality_for_recognition != QualityForRecognition.high:
-#             sufficientQuality = False
-#             break
-#         face_client.person_group_person.add_face_from_url(PERSON_GROUP_ID, man.person_id, image)
-#         print("face {} added to person {}".format(face.face_id, man.person_id))
-
-#     if not sufficientQuality: continue
 
 # # Add to child person
 # for image in child_images:
@@ -232,24 +295,6 @@ def photo_to_person(PersonGroupID, personID, encoded_image):
 #     if not sufficientQuality: continue
 
 
-# '''
-# Train PersonGroup
-# '''
-# # Train the person group
-# print("pg resource is {}".format(PERSON_GROUP_ID))
-# rawresponse = face_client.person_group.train(PERSON_GROUP_ID, raw= True)
-# print(rawresponse)
-
-# while (True):
-#     training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
-#     print("Training status: {}.".format(training_status.status))
-#     print()
-#     if (training_status.status is TrainingStatusType.succeeded):
-#         break
-#     elif (training_status.status is TrainingStatusType.failed):
-#         face_client.person_group.delete(person_group_id=PERSON_GROUP_ID)
-#         sys.exit('Training the person group has failed.')
-#     time.sleep(5)
 
 # '''
 # Identify a face against a defined PersonGroup
