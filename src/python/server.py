@@ -126,10 +126,12 @@ def post_upload():
 
                 PersonGroupID = data['groupid']
                 personID = data['personid']
-
+                print("hola soy pablo y soy weco")
                 with open(os.path.join(app.config['UPLOAD_FOLDER'], filename), "rb") as image_file:
                     #Creo que si mandas image_file a la funcion de photo_to_person, no hace falta que lo codifiques a base64
-                    status = photo_to_person(PersonGroupID, personID, image_file)
+                    # print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    # print(image_file)
+                    status = photo_to_person(PersonGroupID, personID, os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     print(status)
                     if status == 'ok':
                         print("type(image_file): " + str(type(image_file)))

@@ -189,22 +189,19 @@ def create_person(PersonGroupID, name, userData=""):
 #     except Exception as e:
 #         print("Error en photo_to_person")
 #         print(e)
-def photo_to_person(PersonGroupID, personID, image):
+def photo_to_person(PersonGroupID, personID, imagen):
+    # image = open(imagen, "r+b")
     try:
         face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
         sufficientQuality = True
-        detected_faces = face_client.face.detect_with_stream(image=image, detection_model='detection_01', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
-        for face in detected_faces:
-            print(face.face_attributes.quality_for_recognition)
-            print(face.face_attributes.quality_for_recognition != QualityForRecognition.medium)
-            print(face.face_attributes.quality_for_recognition == QualityForRecognition.high)
+        detected_faces = face_client.face.detect_with_stream(image=open(imagen, "r+b"), detection_model='detection_01', recognition_model='recognition_04', return_face_attributes=['qualityForRecognition'])
+
         for face in detected_faces:
             if face.face_attributes.quality_for_recognition != QualityForRecognition.medium and face.face_attributes.quality_for_recognition != QualityForRecognition.high: #TODO: Probar con medium or high
                 sufficientQuality = False
                 break
-            person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, image)
+            person = face_client.person_group_person.add_face_from_stream(PersonGroupID, personID, open(imagen, "r+b"))
             print("face {} added to person {}".format(face.face_id, personID))
-        
         if not sufficientQuality:
             return {"status": "Image quality not sufficient for recognition"}
         
