@@ -138,6 +138,18 @@ def post_upload():
     except Exception as e:
         print(e)
         return {"status": "no ok"}
+
+@app.route('/post_train_personGroup',methods = ['POST', 'GET'])
+    #NOW we get the post request from the client
+def post_train_personGroup():
+    if request.method == 'POST':
+        data = request.json
+        pprint(vars(request))
+        porfa = train_personGroup(data['groupId'])
+        return {"funciona": "si"}
+    else:
+        return("no post")
+
 # @app.route("/post_photo_to_person", methods=['POST'])
 # def post_photo_to_person():
 #     if request.method == 'POST':

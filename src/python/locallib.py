@@ -190,6 +190,33 @@ def photo_to_person(PersonGroupID, personID, encoded_image):
         print("Error en photo_to_person")
         print(e)
 
+'''
+Train PersonGroup
+'''
+# Train the person group
+
+def train_personGroup(PERSON_GROUP_ID):
+    try:
+        #print("pg resource is {}".format(PERSON_GROUP_ID))
+        print('Entro a train person ')
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+        rawresponse = face_client.person_group.train(PERSON_GROUP_ID, raw= True)
+        print(rawresponse)
+
+        while (True):
+            training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
+            print("Training status: {}.".format(training_status.status))
+            print()
+            if (training_status.status is TrainingStatusType.succeeded):
+                break
+            elif (training_status.status is TrainingStatusType.failed):
+                #face_client.person_group.delete(person_group_id=PERSON_GROUP_ID)
+                sys.exit('Training the person group has failed.')
+            time.sleep(5)
+        return {"status": "ok"}    
+    except Exception as e:
+        print("Error en train_personGroup")
+        print(e)
 
 
 
@@ -243,24 +270,6 @@ def photo_to_person(PersonGroupID, personID, encoded_image):
 #     if not sufficientQuality: continue
 
 
-# '''
-# Train PersonGroup
-# '''
-# # Train the person group
-# print("pg resource is {}".format(PERSON_GROUP_ID))
-# rawresponse = face_client.person_group.train(PERSON_GROUP_ID, raw= True)
-# print(rawresponse)
-
-# while (True):
-#     training_status = face_client.person_group.get_training_status(PERSON_GROUP_ID)
-#     print("Training status: {}.".format(training_status.status))
-#     print()
-#     if (training_status.status is TrainingStatusType.succeeded):
-#         break
-#     elif (training_status.status is TrainingStatusType.failed):
-#         face_client.person_group.delete(person_group_id=PERSON_GROUP_ID)
-#         sys.exit('Training the person group has failed.')
-#     time.sleep(5)
 
 # '''
 # Identify a face against a defined PersonGroup

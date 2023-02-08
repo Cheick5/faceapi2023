@@ -101,9 +101,10 @@ export function FileUpload(){
  
     return(            
         <>
-        <div className = "Upload" style = {{display : "flex" , justifyContent : "center"}}s>
+        <div className = "Upload" style = {{display : "flex" , justifyContent : "center", marginTop: '2rem'}}s>
             <div className="row">
                 <div className="col-md-auto">
+                    <h1>Borra una persona</h1>
                     <MDBCardBody className='px-5'>
                         <div className="input-group">
                             <label className="input-label">
