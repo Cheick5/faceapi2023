@@ -112,7 +112,7 @@ export function FileUpload(){
                             </label>
                             <select className="input-select"onClick = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
                             <option value=""> -- Ej: Presidentes -- </option>
-                            {listGroupId.map((item) => (
+                            {listGroupId.sort().map((item) => (
                                 <option key={item} value={item}>
                                 {item}
                                 </option>
