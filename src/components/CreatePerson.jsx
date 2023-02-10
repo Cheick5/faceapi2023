@@ -1,23 +1,16 @@
-import React, {useCallback,useState,useRef,useEffect} from 'react'
+import React, {useState,useRef,} from 'react'
 import axios from 'axios';
-import { Link } from "react-router-dom"
-// import { Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import {
-    MDBBtn,
-    MDBContainer,
-    MDBCard,
-    MDBCardBody,
-  }
-  
-  from 'mdb-react-ui-kit';;
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import {MDBCardBody} from 'mdb-react-ui-kit';;
 
 
 function CreatePerson() {
 
-    const [groupid, setgroupid] = useState({})
-    const [person, setPerson] = useState("")
-    const [selectgroup, setSelectgroup] = useState("")
+    const [groupid, setgroupid] = useState([])
     const [list, setList] = useState([])
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
@@ -85,37 +78,56 @@ function CreatePerson() {
     <>
     <div className = "Upload">
         <div className="row" style = {{textAlign : 'center'}}>
-            <div className="col-md-6 offset-md-3">
-                <MDBCardBody className='px-5'>
+            <div className="col-md-8 offset-md-2">
+                <MDBCardBody className=''>
                     <h2 className="text-uppercase text-center mb-5">Crea una persona para un PersonGroup</h2>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <form > 
-                        <label>
-                        Selecciona un GroupId: 
-                        <select onClick = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
-                        <option value=""> -- Ej: Presidentes -- </option>
-                            {list.map((e,key) => {
-                               return <option key={key} value={e}> {e} </option>
-                            })}
-                        </select>
-                        </label>
-                        <br></br><br></br>
-                    </form>
-                    <form onSubmit={handleSubmit}>
-                        <div className="input-field" >
-                            <label for="first_name">Nombre</label>
-                            <input name = "first_name" type='text' value={Fname} placeholder= 'Ej: Manuel ' required onChange={(e) => setFname(e.target.value)}/>
-                        <br></br><br></br>
-                            <label for="last_name">Apellidos</label>
-                            <input name = "last_name" type='text' value={Lname} placeholder= 'Ej: Blanco' required onChange={(e) => setLname(e.target.value)}/>
-                        <br></br><br></br>
-                            <label for="rut">Rut sin puntos ni digito verificador</label>
-                            <input name = "rut" type='text' value={rut} placeholder= 'Ej: 11233333' required onChange={(e) => setRut(e.target.value)}/>
-                        <br></br><br></br>
+                    
+                    <div className = "grid-container">     
+                        <div style = {{marginRight : "3rem", marginBottom : "1rem"}}>
+                            <form >
+                                <FormControl fullWidth required>
+                                <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
+                                <Select onOpen = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
+                                <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
+                                    {list.map((e,key) => {
+                                       return <MenuItem key={key} value={e}> {e} </MenuItem>
+                                    })}
+                                </Select>
+                                </FormControl>
+                            </form>
+                        </div>
+                        <div>
+                            <TextField
+                                    multiline
+                                    label="Nombre"
+                                    helperText="Ej: Manuel"
+                                    onChange={(e) => setFname(e.target.value)}
+                                    value={Fname}
+                                />
+                        </div>
+                        <div style = {{marginRight : "3rem"}}>
+                            <TextField
+                                    multiline
+                                    label="Apellidos"
+                                    helperText="Ej: Blanco"
+                                    onChange={(e) => setLname(e.target.value)}
+                                    value={Lname}
+                                />
+                        </div>
+                        <div>
+                            <TextField
+                                    multiline
+                                    label="Rut sin puntos ni digito verificador"
+                                    helperText="Ej: 11233333"
+                                    onChange={(e) => setRut(e.target.value)}
+                                    value={rut}
+                                />
+                        </div>
+                    </div>
+
                             <i className="uil uil-user"></i>
-                        </div> 
-                        <button trype = "buttom"style = {{marginBottom : "2rem"}} >Save</button>
-                    </form>
+                        <button trype = "buttom" onClick = {handleSelect} style = {{marginBottom : "2rem"}} >Save</button>
                 </MDBCardBody>
             </div>
         </div>

@@ -1,27 +1,26 @@
 import React, {useRef, useState } from 'react'
 import axios from 'axios';
 import { Link } from "react-router-dom"
+import FormControl from '@mui/material/FormControl';
+import { TextField } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Autocomplete from '@mui/material/Autocomplete';
 
 
-import {
-    
-    MDBCardBody,
-  }
-  
-from 'mdb-react-ui-kit';;
+import {MDBCardBody} from 'mdb-react-ui-kit';;
 
 export function FileUpload(){
 
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
-    //Lista de las personas
     const [listPersonId, setListPersonId] = useState([]);
+    const [listPersonas, setListPersonas] = useState([])
     const [listGroupId, setListGroupId] = useState([]);
-
-    //Group, person and image seleccionados 
-    const [groupId, setGroupId] = useState();
+    const [groupId, setGroupId] = useState([]);
     const [personId, setPersonId] = useState();
-    const [selectedFile, setSelectedFile] = useState({})
+    const [selectedFile, setSelectedFile] = useState([])
     
     //cambios de las opciones seleccionadas
     const handleInputChange = async (event) => {
@@ -51,11 +50,45 @@ export function FileUpload(){
           }
           console.log(errMsg)
         }
+        const fetchperson = async (e) =>  {
+            try {
+                const response = await axios.get('http://localhost:5000/get_get_person',  
+                    {
+                        headers: { 'Content-Type': 'application/json' }
+                    }
+                );
+                const filtered = response.data.filter(function(x) {
+                    return x[4] === e;}
+                );
+                //We trim index 1 and 2
+                filtered.forEach(function(x) {
+                    x[1] = x[1].trim();
+                    x[2] = x[2].trim();
+                });
+                await setListPersonas(filtered);
+            } catch (err) {
+                if (!err?.response) {
+                    setErrMsg('No Server Response');
+                } else if (err.response?.status === 409) {
+                    setErrMsg('Username Taken');
+                } else {
+                    setErrMsg('Registration Failed')
+                }
+                errRef.current.focus();
+            }
+        }
+        const handleSelectedGroup = async (e) => {
+        
+            setGroupId(e.target.value);
+            fetchperson(e.target.value);
+    
+        }
+
     //llama a la api para guardar en una lista las personas del grupo seleccionado
     //TODO: hay que poner el grupo seleccionado como argumento en la peticion a la api
     const handleSelectPerson = async (e) => {
         console.log("dropdown person id")
-        console.log("wena asdfjaosdj" + groupId)
+        console.log("groupId" + groupId)
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:5000/get_list_person_id', 
@@ -101,37 +134,39 @@ export function FileUpload(){
  
     return(            
         <>
-        <div className = "Upload" style = {{display : "flex" , justifyContent : "center"}}s>
+        <div className = "Upload" style = {{display : "flex" , justifyContent : "center"}}>
             <div className="row">
                 <div className="col-md-auto">
                     <MDBCardBody className='px-5'>
                         <div className="input-group">
-                            <label className="input-label">
-                                Group ID:
-                            </label>
-                            <select className="input-select"onClick = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
-                            <option value=""> -- Ej: Presidentes -- </option>
+                            <FormControl fullWidth required>
+                            <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
+                            <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}
+                            onChange={(e) => handleSelectedGroup(e)}>
+                            <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
                             {listGroupId.map((item) => (
-                                <option key={item} value={item}>
+                                <MenuItem key={item} value={item}>
                                 {item}
-                                </option>
+                                </MenuItem>
                             ))}
-                            </select>
+                            </Select>
+                            </FormControl>
                         </div>
                         <div className="input-group">
-                            <label className="input-label">
-                            Person ID:
-                            </label>
-                            <select className="input-select"  onClick = {handleSelectPerson} value={personId} onChange={(e) => setPersonId(e.target.value)}>
-                            <option value=""> -- Ej: 13289123809 -- </option>
 
-                            {listPersonId.map((item) => (
-                                
-                                <option key={item.split(',')[1]} value={item.split(',')[1]}>
-                                {item.split(',')[0]+ " "+ item.split(',')[2]+ " Rut: " + item.split(',')[3]}
-                                </option>
-                            ))}
-                            </select>
+                                <Autocomplete
+                                disablePortal
+                                id="combo-box-demo"
+                                options={listPersonas}  
+                                groupBy={(option) => option[1][0]}
+                                // getOptionLabel={(option) => option[1].trim() + " " + option[2].trim()}
+                                getOptionLabel={(option) => option[1] + " " + option[2]}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => <TextField {...params} label="Personas" />}
+                                onChange={(event: any, newValue: string | null) => {
+                                    setPersonId(newValue);
+                                }}
+                                />
                         </div>
                                 <h2 style= {{marginTop: "2rem"}} className="text-uppercase text-center mb-5">Selecciona un archivo :</h2>
                                 <input type="file" className="form-control" name="upload_file" onChange={handleInputChange} />

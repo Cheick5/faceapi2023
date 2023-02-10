@@ -1,12 +1,7 @@
-import React, {useCallback,useState,useRef,useEffect} from 'react'
+import React, {useState,useRef} from 'react'
 import axios from 'axios';
-import { Link } from "react-router-dom"
-// import { Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
 import {
-    MDBBtn,
-    MDBContainer,
-    MDBCard,
     MDBCardBody,
   }
   
@@ -38,6 +33,7 @@ const AddCourse = () => {
             );
             // TODO: remove console.logs before deployment
             console.log(JSON.stringify(response?.data));
+            //TODO: Feedback al usuario
             //console.log(JSON.stringify(response))
             // setSuccess(true);
          
@@ -58,36 +54,49 @@ const AddCourse = () => {
         <>
         <div className = "Upload">
             <div className="row" style = {{textAlign : 'center'}}>
-                <div className="col-md-6 offset-md-3">
-                    <MDBCardBody className='px-5'>
+                <div className="col-md-8 offset-md-2">
+                    <MDBCardBody className='px-10'>
                         <h2 className="text-uppercase text-center mb-5">Crea un curso para subir a la base de datos</h2>
                         <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                        {/* <form > 
-                            <label>
-                            Selecciona un GroupId: 
-                            <select onClick = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
-                            <option value=""> -- Ej: Presidentes -- </option>
-                                {list.map((e,key) => {
-                                   return <option key={key} value={e}> {e} </option>
-                                })}
-                            </select>
-                            </label>
-                            <br></br><br></br>
-                        </form> */}
                         <form onSubmit={handleSubmit}>
-                            <div className="input-field"  >
-                                <label for="Name">Nombre</label>
-                                <input name = "Name" type='text' value={name} placeholder= 'Ej: DISEÑO DE SOFTWARE Sec.1' required onChange={(e) => setName(e.target.value)}/>
-                            <br></br><br></br>
-                                <label for="Año">Año</label>
-                                <input name = "Year" type='text' value={year} placeholder= 'Ej: 2022' required onChange={(e) => setYear(e.target.value)}/>
-                            <br></br><br></br>
-                                <label for="Semester">Semestre</label>
-                                <input name = "Semester" type='text' value={semester} placeholder= 'Ej: 2' required onChange={(e) => setSemester(e.target.value)}/>
-                            <br></br><br></br>
-                                <label for="Short_Name">Nombre corto</label>
-                                <input name = "Short_Name" type='text' value={short_name} placeholder= 'Ej: TICS316' required onChange={(e) => setShort_name(e.target.value)}/>
-                            <br></br><br></br>
+                            <div className="grid-container" >
+                                <div style = {{marginRight : "3rem", marginBottom : "1rem"}}>
+                                <TextField
+                                    multiline
+                                    label="Nombre"
+                                    helperText="Ej: DISEÑO DE SOFTWARE Sec.1"
+                                    onChange={(e) => setName(e.target.value)}
+                                    value={name}
+                                />
+                                </div>
+                                <div>
+                                    <TextField
+                                        multiline
+                                        label="Short_Name"
+                                        helperText="Ej: TICS316"
+                                        onChange={(e) => setShort_name(e.target.value)}
+                                        value={short_name}
+                                    />
+                                </div>
+                                <div style = {{marginRight : "3rem"}}>
+                                <TextField
+                                    multiline
+                                    label="Año"
+                                    helperText="Ej: 2022"
+                                    onChange={(e) => setYear(e.target.value)}
+                                    value={year}
+                                />
+                                </div>
+                                <div>
+                                    <TextField
+                                        multiline
+                                        label="Semestre"
+                                        helperText="Ej: 2"
+                                        onChange={(e) => setSemester(e.target.value)}
+                                        value={semester}
+                                    />
+                                </div>
+
                                 <i className="uil uil-user"></i>
                             </div> 
                             <button trype = "buttom"style = {{marginBottom : "2rem"}} >Save</button>

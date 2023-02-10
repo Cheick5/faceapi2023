@@ -1,21 +1,15 @@
-import React, {useCallback,useState,useRef,useEffect} from 'react'
+import React, {useState,useRef} from 'react'
 import axios from 'axios';
-import { Link } from "react-router-dom"
-// import { Navigate } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import {
-    MDBBtn,
-    MDBContainer,
-    MDBCard,
-    MDBCardBody,
-  }
-  
-  from 'mdb-react-ui-kit';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import {MDBCardBody} from 'mdb-react-ui-kit';
 
 
 function DeletePersonGroup() {
 
-    const [groupid, setgroupid] = useState({})
+    const [groupid, setgroupid] = useState([])
     const [list, setList] = useState([])
     const [errMsg, setErrMsg] = useState('');
     const errRef = useRef();
@@ -81,22 +75,20 @@ function DeletePersonGroup() {
                 <MDBCardBody className='px-5'>
                     <h2 className="text-uppercase text-center mb-5">Borra un PersonGroup</h2>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <form > 
-                        <label>
-                        Selecciona un GroupId: 
-                        <select onClick = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
+                    <FormControl fullWidth style = {{marginBottom : "2rem"}} >
+                        <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
+                        <Select onOpen = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
                             
-                            <option value=""> -- Ej: Presidentes -- </option>
+                            <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
 
                             {list.map((e,key) => {
-                               return <option key={key} value={e}> {e} </option>
+                               return <MenuItem key={key} value={e}> {e} </MenuItem>
                             })}
                             
-                        </select>
-                        </label>
+                        </Select>
                         
+                        </FormControl>
                         <button type='button' style = {{marginBottom : "2rem"}} onClick={handleDelete} >Borrar</button>
-                    </form>
                 </MDBCardBody>
             </div>
         </div>

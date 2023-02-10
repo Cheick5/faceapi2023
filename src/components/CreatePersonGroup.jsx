@@ -1,10 +1,8 @@
-import React, {useCallback,useState,useRef,useEffect} from 'react'
+import React, {useState,useRef,useEffect} from 'react'
 import axios from 'axios';
-import {
-    MDBCardBody,
-  }
-  
-  from 'mdb-react-ui-kit';;
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import {MDBCardBody} from 'mdb-react-ui-kit';;
 
 
 function CreatePersonGroup() {
@@ -54,14 +52,20 @@ function CreatePersonGroup() {
                 <MDBCardBody className='px-5'>
                     <h2 className="text-uppercase text-center mb-5">Crea un Person Group </h2>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <form onSubmit={handleSubmit}>
+                    <FormControl fullWidth style = {{marginBottom : "2rem"}} >
                         <div className="input-field">
-                            <label for="groupid">GroupId</label>
-                            <input name = "groupid" type='text' value={groupid} placeholder= 'Ej: Presidentes' required onChange={(e) => setGroupid(e.target.value)}/>
+
+                            <TextField
+                                    multiline
+                                    label="GroupId"
+                                    helperText="Ej: Presidentes"
+                                    onChange={(e) => setGroupid(e.target.value.toLowerCase())}
+                                    value={groupid}
+                                />
                             <i className="uil uil-user"></i>
                         </div> 
-                        <button style = {{marginBottom : "2rem"}} >Save</button>
-                    </form>
+                    </FormControl>
+                        <button onClick = {handleSubmit} style = {{marginBottom : "2rem"}} >Save</button>
                 </MDBCardBody>
             </div>
         </div>

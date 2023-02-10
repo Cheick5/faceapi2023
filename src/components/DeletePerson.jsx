@@ -1,14 +1,10 @@
 import React, {useRef, useState } from 'react'
 import axios from 'axios';
-import { Link } from "react-router-dom"
-
-
-import {
-    
-    MDBCardBody,
-  }
-  
-from 'mdb-react-ui-kit';;
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import {MDBCardBody} from 'mdb-react-ui-kit';;
 
 export function FileUpload(){
 
@@ -19,8 +15,8 @@ export function FileUpload(){
     const [listGroupId, setListGroupId] = useState([]);
 
     //Group, person and image seleccionados 
-    const [groupId, setGroupId] = useState();
-    const [personId, setPersonId] = useState();
+    const [groupId, setGroupId] = useState("");
+    const [personId, setPersonId] = useState("");
     
     //llama a la api para guardar los grupos en una lista
     const handleSelectGroup = async (e) => {
@@ -46,9 +42,12 @@ export function FileUpload(){
         }
     //llama a la api para guardar en una lista las personas del grupo seleccionado
     const handleSelectPerson = async (e) => {
-        console.log("dropdown person id")
-        console.log("wena asdfjaosdj" + groupId)
         e.preventDefault();
+        if (groupId === ""){
+            setErrMsg('Select a Group');
+            console.log("Select a Group");
+            return;
+        }
         try {
             const response = await axios.post('http://localhost:5000/get_list_person_id', 
                 { "groupid": groupId  },
@@ -104,44 +103,50 @@ export function FileUpload(){
         <div className = "Upload" style = {{display : "flex" , justifyContent : "center", marginTop: '2rem'}}s>
             <div className="row">
                 <div className="col-md-auto">
-                    <h1>Borra una persona</h1>
+                    <h1 style = {{marginBottom : "2rem"}}>Borra una persona</h1>
                     <MDBCardBody className='px-5'>
                         <div className="input-group">
-                            <label className="input-label">
+                            {/* <label className="input-label">
                                 Group ID:
-                            </label>
-                            <select className="input-select"onClick = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
-                            <option value=""> -- Ej: Presidentes -- </option>
-                            {listGroupId.sort().map((item) => (
-                                <option key={item} value={item}>
-                                {item}
-                                </option>
-                            ))}
-                            </select>
+                            </label> */}
+
+                            <FormControl fullWidth id="groupidformcontrol" required>  
+                            <InputLabel htmlFor="grouped-native-select">Group ID:</InputLabel>
+
+                                <Select required className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
+                                <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
+                                {listGroupId.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                    {item}
+                                    </MenuItem>
+                                ))}
+                                </Select>
+                            </FormControl>
+
                         </div>
-                        <div className="input-group">
-                            <label className="input-label">
+                        
+                        <FormControl fullWidth> 
+                            <InputLabel htmlFor="grouped-native-select">Person ID:</InputLabel>
+                            {/* <label className="input-label">
                             Person ID:
-                            </label>
-                            <select className="input-select"  onClick = {handleSelectPerson} value={personId} onChange={(e) => setPersonId(e.target.value)}>
-                            <option value=""> -- Ej: 13289123809 -- </option>
+                            </label> */}
+                            <Select className="input-select"  onOpen = {handleSelectPerson} value={personId} onChange={(e) => setPersonId(e.target.value)}>
+                            <MenuItem disabled value=""> -- Ej: 13289123809 -- </MenuItem>
 
                             {listPersonId.map((item) => (
                                 
-                                <option key={item.split(',')[1]} value={item.split(',')[1]}>
+                                <MenuItem key={item.split(',')[1]} value={item.split(',')[1]}>
                                 {item.split(',')[0]+ " "+ item.split(',')[2]+ " Rut: " + item.split(',')[3]}
-                                </option>
+                                </MenuItem>
                             ))}
-                            </select>
-                        </div>
+                            </Select>
+                            </FormControl>
+    
 
                         <div className="form-row">
                             <div>
                                 <button style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" className="btn btn-dark" onClick={Handlesubmit}>Borrar</button>
                             </div>
-                                <Link to = "/uploaded">
-                                    <button style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" className="btn btn-dark">Ver tabla</button>
-                                </Link>
                         </div>
                     </MDBCardBody>
                 </div>

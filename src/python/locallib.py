@@ -122,6 +122,7 @@ def create_person_group(PersonGroupID,userData="",recognition_model = "recogniti
     except Exception as e:
         print("Error en create_person_group")
         print(e)
+        return False
 
 def delete_person_group_person(PersonGroupID,personId):
     '''

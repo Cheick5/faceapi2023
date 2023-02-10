@@ -51,10 +51,13 @@ def get_list_person_group_persons():
     #NOW we get the post request from the client
 def post_create_person_group():
     if request.method == 'POST':
-        data = request.json
-        pprint(vars(request))
-        porfa = create_person_group(data['groupid'])
-        return {"funciona": "si"}
+        try:
+            data = request.json
+            porfa = create_person_group(data['groupid'])
+            return {"funciona": "si"}
+        except Exception as e:
+            print(e)
+            return {"funciona": "no"}
     else:
         return("no post")
 

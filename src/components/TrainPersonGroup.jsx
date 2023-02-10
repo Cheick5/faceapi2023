@@ -1,5 +1,9 @@
-import React, {useCallback,useState,useRef,useEffect} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import {
     MDBCardBody,
   }
@@ -9,13 +13,9 @@ import {
 
 function CreatePersonGroup() {
 
-    const [groupId, setGroupId] = useState();
+    const [groupId, setGroupId] = useState([]);
     const [listGroupId, setListGroupId] = useState([]);
-
-    
-    
     const [errMsg, setErrMsg] = useState('');
-    const errRef = useRef();
     
    
     const handleTrain = async (e) => {
@@ -63,17 +63,22 @@ function CreatePersonGroup() {
                 <MDBCardBody className='px-5'>
                 <h1>Entrena un Person Group</h1>
                 <div className="input-group" style={{margin : '2rem 2rem', alignItems : 'center', justifyContent : 'center'}}>
-                            <label className="input-label" style={{marginRight: '2rem'}}>
-                                Group ID:
-                            </label>
-                            <select className="input-select"onClick = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
-                            <option value=""> -- Ej: Presidentes -- </option>
-                            {listGroupId.map((item) => (
-                                <option key={item} value={item}>
-                                {item}
-                                </option>
-                            ))}
-                            </select>
+                            
+                             <FormControl fullWidth>  
+                                {/* <label className="input-label" style={{marginRight: '2rem'}}>
+                                    Group ID:
+                                </label> */}
+                                <InputLabel htmlFor="grouped-native-select">Group ID:</InputLabel>   
+
+                                <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
+                                <MenuItem value=""> -- Ej: Presidentes -- </MenuItem>
+                                {listGroupId.map((item) => (
+                                    <MenuItem key={item} value={item}>
+                                    {item}
+                                    </MenuItem>
+                                ))}
+                                </Select>
+                            </FormControl>
                             
                         </div>
                         <button style = {{marginBottom : "2rem"}} onClick = {handleTrain} >Entrenar</button>
