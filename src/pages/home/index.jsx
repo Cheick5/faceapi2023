@@ -13,54 +13,8 @@ export function Index() {
     return (
         
         <div>
-            <h1 className = "Titulo" style={{textAlign: 'center',fontWeight: 'bold'}}> Face Api</h1>
-
-                <div className="row">
-                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
-                        <FileUpload/> 
-                    </div>
-                </div>
-            
-            <div className = "container" style= {{marginTop: "1rem" , marginBottom: "1rem"}}>   
-                <div className="row" style= {{marginTop: "1rem" , marginBottom: "1rem"}} >
-                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
-                        <CreatePersonGroup/>
-                    </div>
-                    <div className="col" style = {{justifyContent : "center" , display : "flex"}} >  
-                        <DeletePersonGroup/>
-                    </div>
-                </div>
-                <div className="row" style= {{marginTop: "1rem" , marginBottom: "1rem"}} >
-                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
-                    <CreatePerson/>
-                    </div>
-                </div>
-                <div className="row" style= {{marginTop: "1rem" , marginBottom: "1rem"}} >
-                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
-                    <AddCourse/>
-                    </div>
-                </div>
-                <div className="row" style= {{marginTop: "1rem" , marginBottom: "1rem"}} >
-                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
-                    <Enrolment/>
-                    </div>
-                </div>
-                
-                <div>
-                    <div className="col" style = {{justifyContent : "center" , display : "flex"}}>
-                        <DeletePerson/>
-                    </div>
-                </div>
-                
-                <div>
-                    <div className="col" style = {{justifyContent : "center" , display : "flex", marginTop: '3rem'}}>
-                        <TrainPersonGroup/>
-                    </div>
-                </div>
             
             
-            </div>
-            {/* <p className = "Bienvenida">alo</p> */}
         </div>  
 
     )

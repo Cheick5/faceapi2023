@@ -1,0 +1,35 @@
+.app__navbar{
+    width: 100%;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; /* alinea los items verticalmente*/
+    padding: 3rem 2rem; /* 1rem para top and bottom y 2rem para left and right*/
+    
+}
+.p__links {
+    font-family: var(--font-alt);
+    color: var(--color-white);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: capitalize;
+    line-height: 28px;
+    font-size: 18px;
+  }
+
+.app__navbar-links{
+    flex: 1;
+    display: flex;
+    justify-content: center; /*horizontalmente*/
+    align-items: center;/*verticalmente*/
+
+    list-style: none;/*saca los puntos de las listas*/
+}
+
+.app__navbar-links li {
+    margin: 0 3rem;
+    cursor: pointer;
+}
+
+.app__navbar-links a:hover {
+    color:var(--color-gray)
+}

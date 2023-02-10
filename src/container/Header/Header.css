@@ -1,0 +1,58 @@
+.app__header-h1{
+    font-family: var(--font-base);
+    color: var(--color-white);
+    letter-spacing: 0.04em;/* espaciado entre letras */
+    text-transform: uppercase; /* mayusculas */
+    line-height: 117px;/* espaciado vertical */
+    font-size: 90px;
+}
+
+.app__header-p {
+    font-family: var(--font-alt);
+    color: var(--color-gray);
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    line-height: 28px;
+    font-size: 18px;
+    margin: 1rem 3rem;
+    width: 824px;
+    text-align: center;
+}
+
+
+.app_header-info{
+    flex: 1;
+    display: flex;
+    justify-content: center; /*horizontalmente*/
+    align-items: center;/*verticalmente*/
+    flex-direction: column;
+}
+
+.app__header-img{
+    margin: 3rem 0;
+}
+
+.app__header-button{
+    background-color: var(--color-sky);
+    color: var(--color-black);
+    font-family: var(--font-base);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 35px;
+    font-size: 24px;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    margin-top: 1rem;
+    
+}
+.custom__button {
+    background-color: var(--color-crimson);
+      color: var(--color-black);
+      font-family: var(--font-base);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 28px;
+  }
