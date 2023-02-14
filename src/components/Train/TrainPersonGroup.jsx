@@ -8,8 +8,9 @@ import {
     MDBCardBody,
   }
   
-  from 'mdb-react-ui-kit';;
+  from 'mdb-react-ui-kit';
 
+import './TrainPersonGroup.css';
 
 function CreatePersonGroup() {
 
@@ -57,20 +58,20 @@ function CreatePersonGroup() {
         }
     return ( 
     <>
-    <div className = "Upload">
-        <div className="row" style = {{textAlign : 'center'}}>
-            <div className="col-md-auto">
-                <MDBCardBody className='px-5'>
+    <div className = "app__train-card">
+        <div>
+            <MDBCardBody className='app__train-card-info'>
                 <h1>Entrena un Person Group</h1>
-                <div className="input-group" style={{margin : '2rem 2rem', alignItems : 'center', justifyContent : 'center'}}>
-                            
-                             <FormControl fullWidth>  
+                    <div className="app__train-container">
+                        <div style = {{width : '300px'}} >
+                            <form>
+                                <FormControl fullWidth>  
                                 {/* <label className="input-label" style={{marginRight: '2rem'}}>
                                     Group ID:
                                 </label> */}
                                 <InputLabel htmlFor="grouped-native-select">Group ID:</InputLabel>   
 
-                                <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
+                                <Select className="input-select" style = {{color : 'white'}} onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
                                 <MenuItem value=""> -- Ej: Presidentes -- </MenuItem>
                                 {listGroupId.map((item) => (
                                     <MenuItem key={item} value={item}>
@@ -79,12 +80,14 @@ function CreatePersonGroup() {
                                 ))}
                                 </Select>
                             </FormControl>
-                            
+                            </form>
                         </div>
-                        <button style = {{marginBottom : "2rem"}} onClick = {handleTrain} >Entrenar</button>
-                </MDBCardBody>
-            </div>
+                        
+                    </div>
+                    <button className='app__train-button' onClick = {handleTrain} >Entrenar</button>
+            </MDBCardBody>
         </div>
+        
     </div>
     </>
 

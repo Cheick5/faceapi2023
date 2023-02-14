@@ -5,8 +5,8 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
-import {MDBCardBody} from 'mdb-react-ui-kit';;
-
+import {MDBCardBody} from 'mdb-react-ui-kit';
+import './Person.css'
 
 function CreatePerson() {
 
@@ -76,19 +76,18 @@ function CreatePerson() {
     }
     return ( 
     <>
-    <div className = "Upload">
-        <div className="row" style = {{textAlign : 'center'}}>
-            <div className="col-md-8 offset-md-2">
-                <MDBCardBody className=''>
-                    <h2 className="text-uppercase text-center mb-5">Crea una persona para un PersonGroup</h2>
+    <div className = "app__person-card">
+            <div>
+                <MDBCardBody className='app__person-card-info'>
+                    <h1 >Crea una persona para un PersonGroup</h1>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     
-                    <div className = "grid-container">     
-                        <div style = {{marginRight : "3rem", marginBottom : "1rem"}}>
+                    <div className = "app__person-container">     
+                        <div style = {{marginBottom : "2rem"}}>
                             <form >
                                 <FormControl fullWidth required>
-                                <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
-                                <Select onOpen = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
+                                <InputLabel htmlFor="grouped-native-select"> GroupId</InputLabel>
+                                <Select style = {{color : 'white'}} onOpen = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
                                 <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
                                     {list.map((e,key) => {
                                        return <MenuItem key={key} value={e}> {e} </MenuItem>
@@ -97,27 +96,33 @@ function CreatePerson() {
                                 </FormControl>
                             </form>
                         </div>
-                        <div>
+                        <div style = {{marginBottom : "1.5rem"}}>
                             <TextField
                                     multiline
+                                    inputProps= {{ style: { color: "white" } }}
+                                    InputLabelProps = {{ style: { color: "white" } }}
                                     label="Nombre"
                                     helperText="Ej: Manuel"
                                     onChange={(e) => setFname(e.target.value)}
                                     value={Fname}
                                 />
                         </div>
-                        <div style = {{marginRight : "3rem"}}>
+                        <div style = {{marginBottom : "1.5rem"}}>
                             <TextField
                                     multiline
+                                    inputProps= {{ style: { color: "white" } }}
+                                    InputLabelProps = {{ style: { color: "white" } }}
                                     label="Apellidos"
                                     helperText="Ej: Blanco"
                                     onChange={(e) => setLname(e.target.value)}
                                     value={Lname}
                                 />
                         </div>
-                        <div>
+                        <div style = {{marginBottom : "1.5rem"}}>
                             <TextField
                                     multiline
+                                    inputProps= {{ style: { color: "white" } }}
+                                    InputLabelProps = {{ style: { color: "white" } }}
                                     label="Rut sin puntos ni digito verificador"
                                     helperText="Ej: 11233333"
                                     onChange={(e) => setRut(e.target.value)}
@@ -126,11 +131,11 @@ function CreatePerson() {
                         </div>
                     </div>
 
-                            <i className="uil uil-user"></i>
-                        <button trype = "buttom" onClick = {handleSelect} style = {{marginBottom : "2rem"}} >Save</button>
+                        <i className="uil uil-user"></i>
+                        <button className='app__person-button' trype = "buttom" onClick = {handleSelect} style = {{marginBottom : "2rem"}} >Save</button>
                 </MDBCardBody>
             </div>
-        </div>
+        
     </div>
     </>
 

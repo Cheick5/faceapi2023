@@ -69,28 +69,29 @@ function DeletePersonGroup() {
     
     return ( 
     <>
-    <div className = "Upload">
-        <div className="row" style = {{textAlign : 'center'}}>
-            <div className="col-md-auto">
-                <MDBCardBody className='px-5'>
-                    <h2 className="text-uppercase text-center mb-5">Borra un PersonGroup</h2>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <FormControl fullWidth style = {{marginBottom : "2rem"}} >
-                        <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
-                        <Select onOpen = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
-                            
-                            <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
 
-                            {list.map((e,key) => {
-                               return <MenuItem key={key} value={e}> {e} </MenuItem>
-                            })}
-                            
-                        </Select>
-                        
-                        </FormControl>
-                        <button type='button' style = {{marginBottom : "2rem"}} onClick={handleDelete} >Borrar</button>
-                </MDBCardBody>
-            </div>
+    <div className='app__persongroup-card'>
+        <div>
+        <MDBCardBody className='app__persongroup-card-info'>
+                    <h1> Borra un PersonGroup </h1>
+                    <div>
+                        <form>
+                            <FormControl className='app__persongroup-card-form' fullWidth style = {{width : '300px'}} >
+                                <InputLabel htmlFor="grouped-native-select" style={{'color' : 'white'}} >GroupId</InputLabel>
+                                <Select style = {{color : 'white'}}  onOpen = {handleSelect} value={groupid} onChange={(e) => setgroupid(e.target.value)}>
+                                    <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
+
+                                    {list.map((e,key) => {
+                                        return <MenuItem key={key} value={e}> {e} </MenuItem>
+                                    })}
+                                
+                                </Select>
+                            </FormControl>
+                        </form>
+                   </div>
+                    <i className="uil uil-user"></i>
+                    <button type='button' style= {{marginTop: '2rem'}} className = 'app__persongroup-button' onClick={handleDelete} >Borrar</button>
+        </MDBCardBody>
         </div>
     </div>
     </>

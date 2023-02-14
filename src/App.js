@@ -1,16 +1,14 @@
 import {Route, Routes} from 'react-router-dom';
 import './App.css';
-// import logo from './logo.svg';
-import { Index } from './pages/home/index';
 import { Uploaded } from './pages/upload/uploaded';
-import FileUpload from './components/FileUpload';
-import CreatePersonGroup from './components/CreatePersonGroup';
-import DeletePersonGroup from './components/DeletePersonGroup';
-import CreatePerson from './components/CreatePerson';
-import DeletePerson from './components/DeletePerson';
-import TrainPersonGroup from './components/TrainPersonGroup';
-import AddCourse from './components/AddCourse';
-import Enrolment from './components/Enrolment';
+import FileUpload from './components/Images/FileUpload';
+import CreatePersonGroup from './components/PersonGroup/CreatePersonGroup';
+import DeletePersonGroup from './components/PersonGroup/DeletePersonGroup';
+import CreatePerson from './components/Person/CreatePerson';
+import DeletePerson from './components/Person/DeletePerson';
+import TrainPersonGroup from './components/Train/TrainPersonGroup';
+import AddCourse from './components/DataBase/AddCourse';
+import Enrolment from './components/DataBase/Enrolment';
 import {Navbar} from './components'
 import {Header} from './container' 
 

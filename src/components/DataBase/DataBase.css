@@ -1,0 +1,65 @@
+.app__data-card{
+    margin:  2rem 0 5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.app__data-card-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 1000px;
+    
+}
+
+.app__data-card-info h1{
+    font-family: var(--font-base);
+    color: var(--color-white);
+    margin: 2rem 4rem;
+    letter-spacing: 0.04em;
+    font-size: 50px;
+    text-align: center;
+}
+
+.app__data-container label{
+    color: var(--color-white);
+    font-family: var(--font-alt);
+    letter-spacing: 0.04em;
+    font-size: 17px;
+}
+
+.app__data-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.app__data-container svg{
+    color: var(--color-white);
+}
+
+.app__data-container p{
+    color: var(--color-white);
+}
+
+.app__data-button{
+
+    background-color: var(--color-sky);
+    color: var(--color-black);
+    font-family: var(--font-base);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 35px;
+    font-size: 24px;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    margin: 2rem;
+     
+}

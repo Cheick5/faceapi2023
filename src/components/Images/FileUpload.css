@@ -1,0 +1,84 @@
+.app__images-card{
+    margin:  2rem 0 5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.app__images-card-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: 100%;
+    
+}
+.app__images-card-info h1{
+    font-family: var(--font-base);
+    color: var(--color-white);
+    margin: 2rem 4rem;
+    letter-spacing: 0.04em;
+    font-size: 50px;
+    text-align: center;
+}
+
+.app__images-container label{
+    color: var(--color-white);
+    font-family: var(--font-alt);
+    letter-spacing: 0.04em;
+    font-size: 17px;
+}
+
+.app__images-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.app__images-container svg{
+    color: var(--color-white);
+}
+.app__images-container p{
+    color: var(--color-white);
+}
+
+.app__images-button{
+
+    background-color: var(--color-sky);
+    color: var(--color-black);
+    font-family: var(--font-base);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 35px;
+    font-size: 24px;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    margin: 2rem;
+     
+}
+input[type=file]::file-selector-button {
+    border: 2px solid var(--color-white);
+    padding: .2em .5em;
+    border-radius: .2em;
+    background-color: var(--color-black);
+    transition: 1s;
+    color: var(--color-white);
+    font-family: var(--font-alt);
+  }
+  
+  input[type=file]::file-selector-button:hover {
+    background-color: var(--color-sky);
+    border: 2px solid var(--color-sky);
+    color: var(--color-black);
+  }
+
+.form-control{
+    color: var(--color-white);
+    font-family: var(--font-alt);
+    
+}

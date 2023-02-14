@@ -4,7 +4,8 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import {MDBCardBody} from 'mdb-react-ui-kit';;
+import {MDBCardBody} from 'mdb-react-ui-kit';
+import './Person.css'
 
 export function FileUpload(){
 
@@ -100,20 +101,21 @@ export function FileUpload(){
  
     return(            
         <>
-        <div className = "Upload" style = {{display : "flex" , justifyContent : "center", marginTop: '2rem'}}s>
-            <div className="row">
-                <div className="col-md-auto">
-                    <h1 style = {{marginBottom : "2rem"}}>Borra una persona</h1>
-                    <MDBCardBody className='px-5'>
-                        <div className="input-group">
-                            {/* <label className="input-label">
-                                Group ID:
-                            </label> */}
+        <div className = "app__person-card" >
+            
+                <div>
+                    <MDBCardBody className='app__person-card-info'>
+                    <h1>Borra una persona de un PersonGroup</h1>
+                    <div className = "app__person-container">    
+                        <div style = {{marginBottom : "1.5rem"}}>
+                            <form>
+                                {/* <label className="input-label">
+                                    Group ID:
+                                </label> */}
 
-                            <FormControl fullWidth id="groupidformcontrol" required>  
-                            <InputLabel htmlFor="grouped-native-select">Group ID:</InputLabel>
-
-                                <Select required className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
+                                <FormControl fullWidth required style={{width : '300px'}}>  
+                                <InputLabel htmlFor="grouped-native-select">Group ID:</InputLabel>
+                                <Select style = {{color : 'white'}} required className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}>
                                 <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
                                 {listGroupId.map((item) => (
                                     <MenuItem key={item} value={item}>
@@ -121,16 +123,17 @@ export function FileUpload(){
                                     </MenuItem>
                                 ))}
                                 </Select>
-                            </FormControl>
+                                </FormControl>
 
+                            </form>
                         </div>
-                        
+                        <form>
                         <FormControl fullWidth> 
                             <InputLabel htmlFor="grouped-native-select">Person ID:</InputLabel>
                             {/* <label className="input-label">
                             Person ID:
                             </label> */}
-                            <Select className="input-select"  onOpen = {handleSelectPerson} value={personId} onChange={(e) => setPersonId(e.target.value)}>
+                            <Select style = {{color : 'white'}} className="form-input-select"  onOpen = {handleSelectPerson} value={personId} onChange={(e) => setPersonId(e.target.value)}>
                             <MenuItem disabled value=""> -- Ej: 13289123809 -- </MenuItem>
 
                             {listPersonId.map((item) => (
@@ -141,16 +144,15 @@ export function FileUpload(){
                             ))}
                             </Select>
                             </FormControl>
-    
+                        </form>
 
-                        <div className="form-row">
-                            <div>
-                                <button style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" className="btn btn-dark" onClick={Handlesubmit}>Borrar</button>
-                            </div>
+    
                         </div>
-                    </MDBCardBody>
-                </div>
-            </div>
+                        <i className="uil uil-user"></i>
+                        <button className='app__person-button' trype = "buttom" >Save</button>
+                </MDBCardBody>
+                </div>   
+       
         </div>
         </>
     )  

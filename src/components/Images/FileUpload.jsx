@@ -7,7 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
-
+import './FileUpload.css'
 
 import {MDBCardBody} from 'mdb-react-ui-kit';;
 
@@ -134,15 +134,17 @@ export function FileUpload(){
  
     return(            
         <>
-        <div className = "Upload" style = {{display : "flex" , justifyContent : "center"}}>
-            <div className="row">
-                <div className="col-md-auto">
-                    <MDBCardBody className='px-5'>
-                        <div className="input-group">
+        <div className = "app__images-card">
+            <div>
+                <MDBCardBody className='app__images-card-info'>
+                <h1 >Selecciona un Group Id y una Persona</h1>
+                    <div className = "app__images-container">
+
+                        <div style={{width : "300px",marginBottom : '2rem'}}>
                             <FormControl fullWidth required>
                             <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
-                            <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}
-                            onChange={(e) => handleSelectedGroup(e)}>
+                            <Select style = {{color : 'white'}} className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}
+                                onChange={(e) => handleSelectedGroup(e)}>
                             <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
                             {listGroupId.map((item) => (
                                 <MenuItem key={item} value={item}>
@@ -152,7 +154,7 @@ export function FileUpload(){
                             </Select>
                             </FormControl>
                         </div>
-                        <div className="input-group">
+                        <div >
 
                                 <Autocomplete
                                 disablePortal
@@ -168,20 +170,19 @@ export function FileUpload(){
                                 }}
                                 />
                         </div>
-                                <h2 style= {{marginTop: "2rem"}} className="text-uppercase text-center mb-5">Selecciona un archivo :</h2>
+                                <h1 style= {{marginTop: "2rem"}}>Selecciona un archivo :</h1>
                                 <input type="file" className="form-control" name="upload_file" onChange={handleInputChange} />
 
                         <div className="form-row">
                             <div>
-                                <button style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" className="btn btn-dark" onClick={Handlesubmit}>Save</button>
+                                <button type="submit" className="app__images-button" onClick={Handlesubmit}>Save</button>
                             </div>
-                                <Link to = "/uploaded">
-                                    <button style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" className="btn btn-dark">Ver tabla</button>
-                                </Link>
+                                
                         </div>
-                    </MDBCardBody>
-                </div>
+                    </div>
+                </MDBCardBody>
             </div>
+            
         </div>
         </>
     )  

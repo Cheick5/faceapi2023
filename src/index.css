@@ -27,3 +27,10 @@ a{
 body {
   background: var(--color-black);
 }
+
+/* HACE QUE LOS BORDES DE LOS COMPONENTES SEAN BLANCOS (DROPDOWNS) */
+.css-1d3z3hw-MuiOutlinedInput-notchedOutline{
+  color: var(--color-white) !important;
+  border: 2px solid var(--color-white) !important;
+
+}

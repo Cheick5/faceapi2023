@@ -10,8 +10,8 @@ import {
     MDBCardBody,
   }
   
-  from 'mdb-react-ui-kit';;
-
+  from 'mdb-react-ui-kit';
+import './DataBase.css'
   function Enrolment() {
 
 
@@ -143,92 +143,80 @@ import {
 
 
 
-     const wena = async (e) => {
-        console.log(listCourses)
-        console.log(listPersonas)
-        // console.log(listPersonas2)
-        // console.log(persona)
+    //  const wena = async (e) => {
+    //     console.log(listCourses)
+    //     console.log(listPersonas)
+    //     // console.log(listPersonas2)
+    //     // console.log(persona)
 
-     }
+    //  }
 
     return ( 
         <>
-        <div className = "Upload">
-            <div className="row" style = {{textAlign : 'center'}}>
-                <div className="col-md-auto">
-                    <MDBCardBody className='px-5'>
-                        <h2 className="text-uppercase text-center mb-5"> Inscribe un alumno a un curso</h2>
-                        <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                        <form 
-                        // onSubmit={handleSubmit}
-                        >    
-                        <FormControl fullWidth>       
-                        <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>         
-                        <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} defaultValue = "a" 
-                        onChange={(e) => handleSelectedGroup(e)}
-                        >
+        <div className = "app__data-card">
+            <div> 
+                <MDBCardBody className='app__data-card-info'>
+                    <h1> Inscribe un alumno a un curso</h1>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <div className= "app__data-container">
+                        <div style = {{marginBottom : "2rem"}}>
+                            <form>
+                                <div>
+                                    <div style = {{marginBottom : "1.5rem"}}>>
+                                        <FormControl fullWidth>       
+                                        <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>         
+                                        <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} defaultValue = "a" 
+                                        onChange={(e) => handleSelectedGroup(e)}
+                                        >
 
-                        <MenuItem  disabled value=""> -- Ej: Presidentes -- </MenuItem>
+                                        <MenuItem  disabled value=""> -- Ej: Presidentes -- </MenuItem>
 
-                        {listGroupId.map((item) => (
-                            <MenuItem  key={item} value={item}>
-                            {item}
-                            </MenuItem>
-                        ))}
+                                        {listGroupId.map((item) => (
+                                            <MenuItem  key={item} value={item}>
+                                            {item}
+                                            </MenuItem>
+                                        ))}
 
-                        </Select>
-                        </FormControl>
-                            <div className="input-field" style = {{textAlign: "right",display: 'flex'}}>
+                                        </Select>
+                                        </FormControl>
+                                    </div>
+                                    <div style = {{marginBottom : "1.5rem"}}>>
+                                        <Autocomplete
+                                        disablePortal
+                                        id="combo-box-demo"
+                                        options={listPersonas}  
+                                        groupBy={(option) => option[1][0]}
+                                        getOptionLabel={(option) => option[1] + " " + option[2]}
+                                        sx={{ width: 300 }}
+                                        renderInput={(params) => <TextField {...params} label="Personas" />}
+                                        onChange={(event: any, newValue: string | null) => {
+                                            setPersona(newValue);
+                                        }}
+                                        />
+                                    </div> 
+                                    <div style = {{marginBottom : "1.5rem"}}>>
+                                        <Autocomplete
+                                        disablePortal
+                                        id="combo-box-demo"
+                                        options={listCourses}
+                                        groupBy={(option) => option[1][0]}
+                                        getOptionLabel={(option) => option[1].trim() + " " + option[2]}
+                                        sx={{ width: 300 }}
+                                        renderInput={(params) => <TextField {...params} label="Curso" />}
+                                        onChange={(event: any, newValue: string | null) => {
+                                            setCourse(newValue);
+                                        }}
+                                        />
 
-                                {/* <label for="persona">Persona </label>
-                                <input name = "persona" type='text' value={persona} placeholder= 'Ej: Manuel Blanco' required onChange={(e) => setpersona(e.target.value)}/>
-                                <i className="uil uil-user"></i> */}
-
-                                <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={listPersonas}  
-                                groupBy={(option) => option[1][0]}
-                                getOptionLabel={(option) => option[1] + " " + option[2]}
-                                sx={{ width: 300 }}
-                                renderInput={(params) => <TextField {...params} label="Personas" />}
-                                onChange={(event: any, newValue: string | null) => {
-                                    setPersona(newValue);
-                                }}
-                                />
-
-
-
-                                <br></br><br></br>
-
-                                {/* <label for="course">Curso </label>
-                                <input name = "course" type='text' value={course} placeholder= 'Ej: Diseño de software' required onChange={(e) => setCourse(e.target.value)}/>
-                                <i className="uil uil-user"></i> */}
-                               
-                                <Autocomplete
-                                disablePortal
-                                id="combo-box-demo"
-                                options={listCourses}
-                                groupBy={(option) => option[1][0]}
-                                getOptionLabel={(option) => option[1].trim() + " " + option[2]}
-                                sx={{ width: 300 }}
-                                renderInput={(params) => <TextField {...params} label="Curso" />}
-                                onChange={(event: any, newValue: string | null) => {
-                                    setCourse(newValue);
-                                }}
-                                />
-
-                            </div> 
-
-
-                            <br></br><br></br>
-
-                            <button style = {{marginBottom : "2rem"}} onClick ={(e) => handleSubmit(e)}
-                             >Inscribir </button>
-                        </form>
-                        <button style = {{marginBottom : "2rem"}} onClick={(e) => wena(e)}>wena </button>
-                    </MDBCardBody>
-                </div>
+                                    </div> 
+                                </div>
+                                <button type = "button" className = 'app__data-button'  onClick ={(e) => handleSubmit(e)}>Inscribir </button>
+                            </form>
+                        </div>
+                    </div>
+                    {/* <button style = {{marginBottom : "2rem"}} onClick={(e) => wena(e)}>wena </button> */}
+                </MDBCardBody>
+                
             </div>
         </div>
         </>

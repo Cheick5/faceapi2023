@@ -1,0 +1,71 @@
+
+.app__persongroup-card{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+.app__persongroup-card-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid white;
+    border-radius: 10px;
+    width: fit-content;
+    
+}
+
+.app__persongroup-card-info h1{
+    font-family: var(--font-base);
+    color: var(--color-white);
+    margin: 2rem 4rem;
+    letter-spacing: 0.04em;
+    font-size: 50px;
+    text-align: center;
+}
+.input-field{
+    margin: 2rem 2rem;
+    text-align: center;
+    align-items: center;
+    
+}
+
+.input-field label{
+    color: var(--color-white);
+    font-family: var(--font-alt);
+    letter-spacing: 0.04em;
+    font-size: 17px;
+}
+
+.input-field p{/* ejemplos */ 
+    color: var(--color-white);
+    margin-top: 0.5rem;
+}
+
+
+.css-q8hpuo-MuiFormControl{
+    width: fit-content;
+}
+
+.app__persongroup-button{
+
+    background-color: var(--color-sky);
+    color: var(--color-black);
+    font-family: var(--font-base);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 35px;
+    font-size: 24px;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 2rem;
+    
+    
+}
+.app__persongroup-card-form svg{
+    color: var(--color-white);
+}

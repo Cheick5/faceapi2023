@@ -2,8 +2,8 @@ import React, {useState,useRef,useEffect} from 'react'
 import axios from 'axios';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import {MDBCardBody} from 'mdb-react-ui-kit';;
-
+import {MDBCardBody} from 'mdb-react-ui-kit';
+import './PersonGroup.css'
 
 function CreatePersonGroup() {
 
@@ -46,30 +46,31 @@ function CreatePersonGroup() {
     }
     return ( 
     <>
-    <div className = "Upload">
-        <div className="row" style = {{textAlign : 'center'}}>
-            <div className="col-md-auto">
-                <MDBCardBody className='px-5'>
-                    <h2 className="text-uppercase text-center mb-5">Crea un Person Group </h2>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <FormControl fullWidth style = {{marginBottom : "2rem"}} >
-                        <div className="input-field">
-
-                            <TextField
-                                    multiline
-                                    label="GroupId"
-                                    helperText="Ej: Presidentes"
-                                    onChange={(e) => setGroupid(e.target.value.toLowerCase())}
-                                    value={groupid}
-                                />
-                            <i className="uil uil-user"></i>
-                        </div> 
-                    </FormControl>
-                        <button onClick = {handleSubmit} style = {{marginBottom : "2rem"}} >Save</button>
+        <div className='app__persongroup-card'>
+            <div>
+                <MDBCardBody className='app__persongroup-card-info'>
+                    <h1 >Crea un Person Group </h1>  
+                        <form>  
+                        <FormControl fullWidth style = {{width : "500px"}}>
+                            <div className="input-field">
+                                <TextField 
+                                        multiline
+                                        inputProps= {{ style: { color: "white" } }}
+                                        InputLabelProps = {{ style: { color: "white" } }}
+                                        label="GroupId"
+                                        helperText="Ej: Presidentes"
+                                        onChange={(e) => setGroupid(e.target.value.toLowerCase())}
+                                        value={groupid}
+                                        />
+                                <i className="uil uil-user"></i>
+                            </div> 
+                        </FormControl>
+                        </form>  
+                        <button onClick = {handleSubmit} className = 'app__persongroup-button' >Guardar</button>
                 </MDBCardBody>
             </div>
         </div>
-    </div>
+                
     </>
 
      );
