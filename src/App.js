@@ -11,14 +11,15 @@ import TrainPersonGroup from './components/Train/TrainPersonGroup';
 import AddCourse from './components/DataBase/AddCourse';
 import Enrolment from './components/DataBase/Enrolment';
 import {Navbar} from './components'
-import {Header} from './container' 
+import {Header, Tutorial, Footer} from './container' 
+
 
 function App() {
   return (
     <div>
       <Navbar/>
       <Routes>
-        <Route  path = "/" element = {<><Header/></>}/> 
+        <Route  path = "/" element = {<><Header/> <Tutorial/> <Footer/></>}/> 
         {/* <Route  path = "/uploaded" element = {<> <Uploaded/> </>}/> */}
         <Route  path = "/PersonGroup" element = {<><CreatePersonGroup/> <DeletePersonGroup/> </> }/>
         <Route  path = "/Person" element = {<><CreatePerson/> <DeletePerson/> </> }/>
@@ -29,8 +30,8 @@ function App() {
         {/* <Route  path = "/eventos" element = {<> <Eventos/> <Footer/> </> }/>
         <Route  path = "/tienda" element = {<><Tienda/> <Footer/> </>}/>
         <Route  path = "/carrito" element = {<><CarritoCompras/> <Paypal/> <Footer/></>}/> */}
-
       </Routes>
+      
     </div>
   )
 }

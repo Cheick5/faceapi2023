@@ -162,7 +162,7 @@ import './DataBase.css'
                         <div style = {{marginBottom : "2rem"}}>
                             <form>
                                 <div>
-                                    <div style = {{marginBottom : "1.5rem"}}>>
+                                    <div style = {{marginBottom : "1.5rem"}}>
                                         <FormControl fullWidth>       
                                         <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>         
                                         <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} defaultValue = "a" 
@@ -180,7 +180,7 @@ import './DataBase.css'
                                         </Select>
                                         </FormControl>
                                     </div>
-                                    <div style = {{marginBottom : "1.5rem"}}>>
+                                    <div style = {{marginBottom : "1.5rem"}}>
                                         <Autocomplete
                                         disablePortal
                                         id="combo-box-demo"
@@ -194,7 +194,7 @@ import './DataBase.css'
                                         }}
                                         />
                                     </div> 
-                                    <div style = {{marginBottom : "1.5rem"}}>>
+                                    <div style = {{marginBottom : "1.5rem"}}>
                                         <Autocomplete
                                         disablePortal
                                         id="combo-box-demo"
