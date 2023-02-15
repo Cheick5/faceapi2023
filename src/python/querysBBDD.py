@@ -55,12 +55,35 @@ def delete_person(PersonId):
     cursor.commit()
     print("Persona borrada")
 
+def delete_db_photo(PersistId):
+    cursor = connect()
+    cursor.execute("DELETE FROM Training WHERE Persistid = ?", (PersistId,))
+    cursor.commit()
+    print("Foto borrada")
+
 def insert_enrolment(Person_Id,Course_Id):
     cursor = connect()
     cursor.execute("INSERT INTO Enrolment (Person_Id, Course_Id) VALUES (?, ?)", (Person_Id, Course_Id))
     cursor.commit()
     print(f"insertado persona con person id {Person_Id} en curso con id {Course_Id}")
     return {"funciona": "si"}
+
+def insert_photo_to_person(Persistid,Photo_Route,Person_Id):
+    cursor = connect()
+    cursor.execute("INSERT INTO Training (Persistid, Photo_Route,Person_Id) VALUES (?,?,?)", (Persistid,Photo_Route,Person_Id))
+    cursor.commit()
+    return {"funciona": "si"}
+
+def select_photo_person(Person_Id):
+    cursor = connect()
+    cursor.execute("Select Persistid,Photo_Route FROM Training WHERE Person_Id = ?", (Person_Id))
+    row = cursor.fetchone()
+    lista = []
+    while row: 
+        lista.append(list(row))
+        row = cursor.fetchone()
+    print(lista)
+    return lista
 
 if __name__ == "__main__":
     select_all_person()

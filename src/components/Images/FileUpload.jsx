@@ -116,10 +116,11 @@ export function FileUpload(){
     //guarda la foto en la persona seleccionada
     const Handlesubmit = async (e) => {
         console.log(groupId);
-        console.log(personId);
+        console.log('personId');
+        console.log(personId[0]);
         const data = new FormData() 
         data.append('groupid', groupId)
-        data.append('personid', personId)
+        data.append('personid', personId[0])
         data.append('file', selectedFile)
         let url = "http://localhost:5000/upload";
         const response = axios.post(url, data, { // receive two parameter endpoint url ,form data 

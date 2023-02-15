@@ -1,4 +1,4 @@
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, send_file
 from flask_cors import CORS, cross_origin
 from locallib import *
 from constantes import *
@@ -165,16 +165,14 @@ def post_upload():
                     # print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     # print(image_file)
                     status = photo_to_person(PersonGroupID, personID, os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                    print(status)
-                    if status == 'ok':
-                        print("type(image_file): " + str(type(image_file)))
+                    print(status["status"])
+                    if status["status"] == 'ok':
                         print("Archivo subido con exito")
-
                     else: 
                         print("File upload failed:", status)
-            return {"encoded_string": "wena"}
+            return {"status": "upload ok"}
         else:
-            return("no post")
+            return("status: no POST/GET")
     except Exception as e:
         print(e)
         return {"status": "no ok"}
@@ -187,6 +185,29 @@ def post_train_personGroup():
         pprint(vars(request))
         porfa = train_personGroup(data['groupId'])
         return {"funciona": "si"}
+    else:
+        return("no post")
+
+@app.route('/post_get_photo_person',methods = ['POST', 'GET'])
+def get_photo_person():
+    if request.method == 'POST':
+        data = request.json
+        porfa = select_photo_person(data['personId'])
+        for i in porfa:
+            # imagen = os.path.join(app.config['UPLOAD_FOLDER'], i[1])
+            imagen = open(i[1], "rb").read()
+            i.append(base64.b64encode(imagen).decode('utf-8') )
+        return (porfa)
+    else:
+        return("no post")
+
+@app.route('/post_delete_photo_person',methods = ['POST', 'GET'])
+def delete_photo_person():
+    if request.method == 'POST':
+        data = request.json
+        porfa = delete_photo(data["groupId"],data["personId"],data['persistId'],data["fileName"])
+        print(porfa)
+        return (porfa)
     else:
         return("no post")
 

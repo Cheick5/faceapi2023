@@ -208,11 +208,15 @@ def photo_to_person(PersonGroupID, personID, imagen):
         if not sufficientQuality:
             return {"status": "Image quality not sufficient for recognition"}
         
-        pprint(person)
+        # pprint(person.persisted_face_id)
+
+        insert_photo_to_person(person.persisted_face_id,imagen,personID)
         return {"status": "ok"}
     except Exception as e:
         print("Error in photo_to_person")
+        print(personID)
         print(e)
+        return {"status": "error"}
 
 
 # # Add to man person
@@ -256,6 +260,38 @@ def train_personGroup(PERSON_GROUP_ID):
     except Exception as e:
         print("Error en train_personGroup")
         print(e)
+
+def delete_photo(groupId,personId,persistId,fileName):
+    
+    #Borrar la foto de Azure
+    try:
+        print("Azure")
+        face_client = FaceClient(ENDPOINT, CognitiveServicesCredentials(KEY))
+        rawresponse = face_client.person_group_person.delete_face(groupId,personId,persistId, raw= True)
+    except Exception as e:
+        print("Error en delete_photo")
+        print(e)
+        raise
+
+    #Borrar la foto de la base de datos
+    try:
+        print("bbdd")
+        delete_db_photo(persistId)
+    except Exception as e:
+        print("Error en delete_photo")
+        print(e)
+        raise
+
+    #Borrar la foto de Uploads
+    try:
+        #Guardare la imagen como variable en caso de que se necesite restarurar si la funcion falla
+        # backup = os.open(fileName,"rb")
+        uploads = os.remove(fileName)
+        print(f"File '{fileName}' deleted successfully")
+    except OSError as e:
+        print(f"Error deleting file: {e}")
+        raise
+    return {"status": "ok"}
 
 
 

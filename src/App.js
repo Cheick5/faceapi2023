@@ -5,6 +5,7 @@ import FileUpload from './components/Images/FileUpload';
 import CreatePersonGroup from './components/PersonGroup/CreatePersonGroup';
 import DeletePersonGroup from './components/PersonGroup/DeletePersonGroup';
 import CreatePerson from './components/Person/CreatePerson';
+import PersonShowImagesTrain from './components/Images/PersonShowImagesTrain';
 import DeletePerson from './components/Person/DeletePerson';
 import TrainPersonGroup from './components/Train/TrainPersonGroup';
 import AddCourse from './components/DataBase/AddCourse';
@@ -21,7 +22,7 @@ function App() {
         {/* <Route  path = "/uploaded" element = {<> <Uploaded/> </>}/> */}
         <Route  path = "/PersonGroup" element = {<><CreatePersonGroup/> <DeletePersonGroup/> </> }/>
         <Route  path = "/Person" element = {<><CreatePerson/> <DeletePerson/> </> }/>
-        <Route  path = "/Images" element = {<> <FileUpload/> </>}/>
+        <Route  path = "/Images" element = {<> <FileUpload/> <PersonShowImagesTrain/> </>}/>
         <Route  path = "/Train" element = {<> <TrainPersonGroup/> </>}/>
         <Route  path = "/Database" element = {<> <AddCourse/> <Enrolment/></>}/>
 
