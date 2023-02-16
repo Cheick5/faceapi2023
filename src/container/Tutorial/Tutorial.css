@@ -43,3 +43,84 @@
 .app__tutorial-info{
     width: 650px;
 }
+
+@media screen and (max-width : 1150px){
+    .app__tutorial-container{
+        align-items: center;
+        text-align: center;
+        padding: 0;
+    }
+    .app__tutorial-group{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        
+    }
+    .app__tutorial-info{
+        margin: 4rem 0;
+        width: 600px;
+    }
+    .app-tutorial-h1{
+        font-size: 60px;
+        text-align: center;
+    }
+    .app-tutorial-p{
+        
+        line-height: 25px;
+        font-size: 17px;
+        text-align: center;
+        
+    }
+    .app__tutorial-info div {
+        width: auto;
+        
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .app__tutorial-info{
+        margin: 4rem 0;
+        width: 550px;
+    }
+    .app__tutorial-info h1 {
+        font-size: 40px;
+        
+    }
+    .app__tutorial-info p {
+        font-size: 15px;
+        
+    }
+    
+}
+
+@media screen and (max-width: 650px) {
+
+    .app__tutorial-info{
+        margin: 4rem 0;
+        width: 450px;
+    }
+    .app__tutorial-info h1 {
+        font-size: 30px;
+        
+    }
+    .app__tutorial-info p {
+        font-size: 13px;
+        
+    }
+  
+  }
+
+  @media screen and (max-width: 500px) {
+    .app__tutorial-info{
+        margin: 4rem 0;
+        width: 350px;
+    }
+    .app__tutorial-info h1 {
+        font-size: 27px;
+        
+    }
+    .app__tutorial-info p {
+        font-size: 13px;
+        
+    }
+}

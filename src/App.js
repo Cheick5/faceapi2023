@@ -19,7 +19,7 @@ function App() {
     <div>
       <Navbar/>
       <Routes>
-        <Route  path = "/" element = {<><Header/> <Tutorial/> <Footer/></>}/> 
+        <Route  path = "/" element = {<><Header/> <Tutorial/> </>}/> 
         {/* <Route  path = "/uploaded" element = {<> <Uploaded/> </>}/> */}
         <Route  path = "/PersonGroup" element = {<><CreatePersonGroup/> <DeletePersonGroup/> </> }/>
         <Route  path = "/Person" element = {<><CreatePerson/> <DeletePerson/> </> }/>
