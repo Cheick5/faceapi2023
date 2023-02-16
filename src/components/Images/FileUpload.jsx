@@ -157,7 +157,7 @@ export function FileUpload(){
                         </div>
                         <div >
 
-                                <Autocomplete
+                                <Autocomplete 
                                 disablePortal
                                 id="combo-box-demo"
                                 options={listPersonas}  
