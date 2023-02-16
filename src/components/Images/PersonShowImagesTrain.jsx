@@ -199,7 +199,7 @@ return(
                 <div  style={{width : "300px",margin : '2rem'}}>
                     <FormControl fullWidth required>
                     <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
-                    <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}
+                    <Select style = {{color : 'white'}} className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}
                     onChange={(e) => handleSelectedGroup(e)}>
                     <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
                     {listGroupId.map((item) => (
@@ -219,7 +219,12 @@ return(
                         groupBy={(option) => option[1][0]}
                         // getOptionLabel={(option) => option[1].trim() + " " + option[2].trim()}
                         getOptionLabel={(option) => option[1] + " " + option[2]}
-                        sx={{ width: 300 }}
+                        sx={{ 
+                            width: { sm: "100%", md: 300 },
+                            "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
+                              color: 'white'
+                            }
+                          }}
                         renderInput={(params) => <TextField {...params} label="Personas" />}
                         onChange={(event: any, newValue: string | null) => {
                             setPersonId(newValue);
