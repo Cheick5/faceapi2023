@@ -216,7 +216,6 @@ return(
 
                         <Autocomplete
                         disablePortal
-                        InputLabelProps = {{ style: { color: "white" } }}
                         id="combo-box-demo"
                         options={listPersonas}  
                         groupBy={(option) => option[1][0]}
