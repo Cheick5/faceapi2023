@@ -130,9 +130,6 @@ export function FileUpload(){
                         <form>
                         <FormControl fullWidth> 
                             <InputLabel htmlFor="grouped-native-select">Person ID:</InputLabel>
-                            {/* <label className="input-label">
-                            Person ID:
-                            </label> */}
                             <Select style = {{color : 'white'}} className="form-input-select"  onOpen = {handleSelectPerson} value={personId} onChange={(e) => setPersonId(e.target.value)}>
                             <MenuItem disabled value=""> -- Ej: 13289123809 -- </MenuItem>
 

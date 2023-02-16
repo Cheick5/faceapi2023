@@ -9,7 +9,8 @@ import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
 import './FileUpload.css';
 
-import {MDBCardBody} from 'mdb-react-ui-kit';;
+import {MDBCardBody} from 'mdb-react-ui-kit';import { style } from '@mui/system';
+;
 
 export function PersonShowImagesTrain(){   const [errMsg, setErrMsg] = useState('');
 const errRef = useRef();
@@ -210,10 +211,12 @@ return(
                     </Select>
                     </FormControl>
                 </div>
-                <div className="input-group">
+
+                <div className="app__images-input" >
 
                         <Autocomplete
                         disablePortal
+                        InputLabelProps = {{ style: { color: "white" } }}
                         id="combo-box-demo"
                         options={listPersonas}  
                         groupBy={(option) => option[1][0]}
@@ -234,17 +237,19 @@ return(
                 
                 <button className="app__images-button" style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" onClick={Handlesubmit}>Mostrar</button>
 
-                <div>
+                <div className = 'app__images-show-container'>
                     {images.length ? (
                         images.map((image, index) => (
-                            <ul key={index}>
-                            <li>
+                            <div key={index} >
+                            <div className = 'app__images-show'>
                                 <img key={index} src={"data:image/jpeg;base64," + image[2]} alt={`Image ${index + 1} from Flask`} id={image[0]} />
-                            </li>
-                            <li>
-                                <button id={image[0]} className="app__images-button" onClick={() => handleDelete(image[0],image[1])}>Borrar imagen</button>
-                            </li>
-                        </ul>
+                            </div>
+                                <div>
+                                    <button id={image[0]} className="app__images-button" onClick={() => handleDelete(image[0],image[1])}>Borrar imagen</button>
+                                </div>
+                           
+                            
+                        </div>
                         ))
                         ) : (
                             <p>Loading...</p>
