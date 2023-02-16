@@ -190,61 +190,65 @@ const handleDelete = async (persistId,fileName) => {
 
 return(            
     <>
-    <div className = "app__images-card" style = {{display : "flex" , justifyContent : "center"}}>
-        <div className="row">
-            <div className="col-md-auto">
-                <MDBCardBody className='px-5'>
-                    <div className="input-group">
-                        <FormControl fullWidth required>
-                        <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
-                        <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}
-                        onChange={(e) => handleSelectedGroup(e)}>
-                        <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
-                        {listGroupId.map((item) => (
-                            <MenuItem key={item} value={item}>
-                            {item}
-                            </MenuItem>
-                        ))}
-                        </Select>
-                        </FormControl>
-                    </div>
-                    <div className="input-group">
+    <div className = "app__images-card">
+        <div >
+            <MDBCardBody className='app__images-card-info'>
+            <h1 >Selecciona una Persona para mostrar sus imagenes</h1>
+            <div className = "app__images-container">
 
-                            <Autocomplete
-                            disablePortal
-                            id="combo-box-demo"
-                            options={listPersonas}  
-                            groupBy={(option) => option[1][0]}
-                            // getOptionLabel={(option) => option[1].trim() + " " + option[2].trim()}
-                            getOptionLabel={(option) => option[1] + " " + option[2]}
-                            sx={{ width: 300 }}
-                            renderInput={(params) => <TextField {...params} label="Personas" />}
-                            onChange={(event: any, newValue: string | null) => {
-                                setPersonId(newValue);
-                            }}
-                            />
-                    </div>
-                    <button className="app__images-button" style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" onClick={Handlesubmit}>Mostrar imagenes</button>
+                <div  style={{width : "300px",margin : '2rem'}}>
+                    <FormControl fullWidth required>
+                    <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>
+                    <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} onChange={(e) => setGroupId(e.target.value)}
+                    onChange={(e) => handleSelectedGroup(e)}>
+                    <MenuItem disabled value=""> -- Ej: Presidentes -- </MenuItem>
+                    {listGroupId.map((item) => (
+                        <MenuItem key={item} value={item}>
+                        {item}
+                        </MenuItem>
+                    ))}
+                    </Select>
+                    </FormControl>
+                </div>
+                <div className="input-group">
 
-                    <div>
-                        {images.length ? (
-                            images.map((image, index) => (
-                                <ul key={index}>
-                                <li>
-                                    <img key={index} src={"data:image/jpeg;base64," + image[2]} alt={`Image ${index + 1} from Flask`} id={image[0]} />
-                                </li>
-                                <li>
-                                    <button id={image[0]} className="app__images-button" onClick={() => handleDelete(image[0],image[1])}>Borrar imagen</button>
-                                </li>
-                            </ul>
-                            ))
+                        <Autocomplete
+                        disablePortal
+                        id="combo-box-demo"
+                        options={listPersonas}  
+                        groupBy={(option) => option[1][0]}
+                        // getOptionLabel={(option) => option[1].trim() + " " + option[2].trim()}
+                        getOptionLabel={(option) => option[1] + " " + option[2]}
+                        sx={{ width: 300 }}
+                        renderInput={(params) => <TextField {...params} label="Personas" />}
+                        onChange={(event: any, newValue: string | null) => {
+                            setPersonId(newValue);
+                        }}
+                        />
+                </div>
+                
+                <button className="app__images-button" style= {{marginTop: "1rem" , marginBottom: "1rem"}} type="submit" onClick={Handlesubmit}>Mostrar</button>
+
+                <div>
+                    {images.length ? (
+                        images.map((image, index) => (
+                            <ul key={index}>
+                            <li>
+                                <img key={index} src={"data:image/jpeg;base64," + image[2]} alt={`Image ${index + 1} from Flask`} id={image[0]} />
+                            </li>
+                            <li>
+                                <button id={image[0]} className="app__images-button" onClick={() => handleDelete(image[0],image[1])}>Borrar imagen</button>
+                            </li>
+                        </ul>
+                        ))
                         ) : (
                             <p>Loading...</p>
-                        )}
-                    </div>
+                            )}
+                </div>
 
-                </MDBCardBody>
             </div>
+            </MDBCardBody>
+           
         </div>
     </div>
     </>
