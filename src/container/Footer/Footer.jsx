@@ -29,7 +29,7 @@ const Footer = () => {
             <a href="https://github.com/Cheick5" target="_blank">
               <BsGithub style={{color: 'var(--color-sky)', fontSize: '30px'}}/>
             </a>
-            <a href="mailto:p.zuniga.mena@gmail.com">
+            <a href="mailto:Nicolassoto1102@gmail.com">
               <MdEmail style={{color: 'var(--color-sky)', fontSize: '30px'}}/>
             </a>
           </div>
