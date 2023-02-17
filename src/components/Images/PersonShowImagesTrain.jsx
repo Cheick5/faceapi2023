@@ -239,9 +239,9 @@ return(
                             <div className = 'app__images-show'>
                                 <img key={index} src={"data:image/jpeg;base64," + image[2]} alt={`Image ${index + 1} from Flask`} id={image[0]} />
                             </div>
-                                <div>
-                                    <button id={image[0]} className="app__images-button" onClick={() => handleDelete(image[0],image[1])}>Borrar imagen</button>
-                                </div>
+                            <div>
+                                <button id={image[0]} className="app__images-button" onClick={() => handleDelete(image[0],image[1])}>Borrar imagen</button>
+                            </div>
                            
                             
                         </div>

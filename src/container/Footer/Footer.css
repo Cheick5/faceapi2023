@@ -1,0 +1,35 @@
+.app__footer-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem 15rem;
+    
+}
+
+.app_footer-content img{
+    width: 50%;
+    
+}
+
+.app_footer-content p{
+    font-family: var(--font-alt);
+    font-size: 30px;
+    color: var(--color-white);
+    font-weight: 300;
+    
+
+}
+
+.app_footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.app__footer-icons{
+    margin-top: 2rem;
+}
+.app__footer-icons a{
+    margin: 0 1rem;
+}
