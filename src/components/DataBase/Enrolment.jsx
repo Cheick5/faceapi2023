@@ -165,7 +165,7 @@ import './DataBase.css'
                                     <div style = {{marginBottom : "1.5rem"}}>
                                         <FormControl fullWidth>       
                                         <InputLabel htmlFor="grouped-native-select">GroupId</InputLabel>         
-                                        <Select className="input-select"onOpen = {handleSelectGroup} value={groupId} defaultValue = "a" 
+                                        <Select style = {{color : 'white'}} className="input-select"onOpen = {handleSelectGroup} value={groupId} defaultValue = "a" 
                                         onChange={(e) => handleSelectedGroup(e)}
                                         >
 
@@ -187,7 +187,12 @@ import './DataBase.css'
                                         options={listPersonas}  
                                         groupBy={(option) => option[1][0]}
                                         getOptionLabel={(option) => option[1] + " " + option[2]}
-                                        sx={{ width: 300 }}
+                                        sx={{ 
+                                            width: { sm: "100%", md: 300 },
+                                            "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
+                                              color: 'white'
+                                            }
+                                          }}
                                         renderInput={(params) => <TextField {...params} label="Personas" />}
                                         onChange={(event: any, newValue: string | null) => {
                                             setPersona(newValue);
@@ -201,7 +206,12 @@ import './DataBase.css'
                                         options={listCourses}
                                         groupBy={(option) => option[1][0]}
                                         getOptionLabel={(option) => option[1].trim() + " " + option[2]}
-                                        sx={{ width: 300 }}
+                                        sx={{ 
+                                            width: { sm: "100%", md: 300 },
+                                            "& .MuiAutocomplete-inputRoot .MuiAutocomplete-input": {
+                                              color: 'white'
+                                            }
+                                          }}
                                         renderInput={(params) => <TextField {...params} label="Curso" />}
                                         onChange={(event: any, newValue: string | null) => {
                                             setCourse(newValue);
